@@ -15,11 +15,11 @@ export const m = {
     logout: 'Logout'
   },
   menu: {
-    project: 'Projects',
-    notes: 'Notes',
-    about: 'About',
-    weather: 'Weather',
-    cube: 'Cube',
-    authority: 'Authority'
+    project: 'mokuai1',
+    notes: 'mokuaier',
+    about: 'mokuaie3',
+    weather: 'ar',
+    cube: 'Cubdae',
+    authority: 'Audadathority'
   }
 }

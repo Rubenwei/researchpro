@@ -12,8 +12,14 @@ import * as utils from '@/utils'
 import 'font-awesome/less/font-awesome.less'
 // 引入定制标题的指令
 import 'directives/customTitle.js'
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
+
 // 在入口处引入模拟的假数据
 import '@/mock'
+
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts;
 
 // 这里只引入了部分饿了么组件
 import {
@@ -51,6 +57,8 @@ import {
     Card,
     Rate,
     Cascader,
+    Carousel,
+    CarouselItem,
     Loading,
     MessageBox,
     Message,
@@ -90,6 +98,8 @@ Vue.use(Col)
 Vue.use(Card)
 Vue.use(Rate)
 Vue.use(Cascader)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
 
 Vue.use(Loading.directive)
 
@@ -105,7 +115,7 @@ Vue.use(VueParticles)
 Vue.config.productionTip = false
 
 // 上线全局请求配置
-axios.defaults.baseURL = 'api/v1/'
+axios.defaults.baseURL = ''
 
 // http request 拦截器
 axios.interceptors.request.use(

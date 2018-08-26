@@ -22,7 +22,6 @@
                     <i :class="item.icon"></i>
                     <span slot="title">{{langType === 'en'? item.name_en: item.name}}</span>
                 </el-menu-item>
-
             </template>
             <!-- <el-submenu index="1">
                     <template slot="title">

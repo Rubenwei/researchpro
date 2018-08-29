@@ -12,7 +12,21 @@ if (debug) {
     })
     Mock.mock(/getMenu/, {
         "data": {
-            menu: [{
+              menu: [{
+                name: '主页',
+                name_en: 'Home',
+                router: '/home',
+                icon: 'el-icon-menu',
+                children: []
+              },
+                {
+                name: '模块三',
+                name_en: 'Cube',
+                router: '/cube',
+                icon: 'el-icon-menu',
+                children: []
+              },
+              {
                 name: '模块一',
                 name_en: 'Projects',
                 router: '',
@@ -33,12 +47,6 @@ if (debug) {
                 name_en: 'Weather',
                 router: '/weather',
                 icon: 'el-icon-picture-outline',
-                children: []
-            }, {
-                name: '模块三',
-                name_en: 'Cube',
-                router: '/cube',
-                icon: 'el-icon-menu',
                 children: []
             }, {
                 name: '模块四',

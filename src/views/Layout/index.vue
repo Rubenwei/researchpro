@@ -6,10 +6,9 @@
             <!-- 这是顶部导航 -->
             <nav-bar></nav-bar>
             <!-- 这是组件要插入的地方 -->
-
+            <keep-alive>
             <router-view class="page-component-wrap animated fadeIn"></router-view>
-
-
+            </keep-alive>
 
     </div>
 </template>

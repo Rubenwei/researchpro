@@ -16,7 +16,13 @@ const ProjectInfo = resolve => require(['@/views/ProjectInfo'], resolve)
 const About = resolve => require(['@/views/About'], resolve)
 
 // 天气预报
-const Weather = resolve => require(['@/views/Weather'], resolve)
+const Index = resolve => require(['@/views/Index'], resolve)
+
+//搜索指数
+import SearchChart from '../components/charts/SearhIndexChart'
+import MediaChart from '../components/charts/MediaIndexChart'
+
+
     // 立方体
 const Cube = resolve => require(['@/views/Cube'], resolve)
     // 权限测试
@@ -27,6 +33,7 @@ const Notfound = resolve => require(['@/views/Notfound'], resolve)
 Vue.use(Router)
 
 const router = new Router({
+    mode:'history',
     routes: [
         // 首先是登录页的路由
         {
@@ -45,7 +52,7 @@ const router = new Router({
             },
             component: Layout,
             // redirect: '/project-info', // 重定向到第一个子路由，否则只渲染Layout组件，这块儿使用时解除注释
-            redirect: '/signin', // 这里重定向到登录页面，是为了展示使用，实际用这个项目开发时，需要注释这行，解除上一行的注释
+            redirect: '/home', // 这里重定向到登录页面，是为了展示使用，实际用这个项目开发时，需要注释这行，解除上一行的注释
             children: [{
                     path: 'home',
                     meta: { requireAuth: true },
@@ -62,9 +69,20 @@ const router = new Router({
                     component: About
                 },
                 {
-                    path: 'weather',
+                    path: 'index',
                     meta: { requireAuth: true },
-                    component: Weather
+                    component: Index,
+                  redirect: '/index/searchchart',
+                    children: [{
+                      path: 'searchchart',
+                      meta: { requireAuth: true },
+                      component: SearchChart
+                    },
+                    {
+                      path: 'mediachart',
+                      meta: { requireAuth: true },
+                      component: MediaChart
+                    }]
                 },
                 {
                     path: 'cube',
@@ -80,8 +98,8 @@ const router = new Router({
         },
         // 最后是404页面
         {
-            path: '*',
-            meta: { requireAuth: false },
+            path:'*',
+          meta: { requireAuth: false },
             component: Notfound
         }
     ]

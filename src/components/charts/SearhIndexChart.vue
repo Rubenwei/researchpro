@@ -1,11 +1,8 @@
 <template>
-  <div :style="{width: '100%', height:'500px'}">
-    <form style="margin: 0 30%">
-      <el-input v-model="query" placeholder="请输入内容" style="width: 350px" ></el-input>
-      <el-button type="primary" icon="el-icon-search" @click="Search">搜索</el-button>
-    </form>
-    <div id="myChart" v-if="query" :style="{width: '100%', height:'90%'}"></div>
+  <div :style="{width: '100%', height: '500px'}">
+    <div id="myChart" :style="{width: '100%', height:'90%'}"></div>
   </div>
+
 </template>
 
 <script>
@@ -13,31 +10,28 @@
   export default {
     name: 'echart',
     data () {
-      return {
+      return{
         query:''
       }
     },
-    mounted() {
+    mounted(){
+      this.drawLine()
     },
+
     methods: {
-      Search(){
-        if(this.query != ''){
-          console.log(this.query)
-          this.drawLine()
-        }
-      },
       drawLine(){
+        console.log('进入echart组件的drawLine函数')
+        console.log('localStorage.query:' + localStorage.query)
+        this.query = localStorage.query
         let myChart = this.$echarts.init(document.getElementById('myChart'));
         let base = +new Date(2011, 0, 0);
         let oneDay = 24 * 3600 * 1000;
         let date = [];
+
         var url = 'api/searchindexdata?message=' + this.query
-        console.log(url)
-        this.$axios.get(url)
+        this.$axios.get('../static/data.json')
           .then(
             (res) => {
-              console.log("我请求成功了")
-              console.log(url)
               let data = res.data;
               for (let i = 1; i < data.total; i++) {
                 let now = new Date(base += oneDay);

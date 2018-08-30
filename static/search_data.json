@@ -1,22 +1,22 @@
 {
   "getlist": [
     {
-      "name":"apple"
+      "value":"apple"
     },
     {
-      "name":"banana"
+      "value":"banana"
     },
     {
-      "name":"pear"
+      "value":"pear"
     },
     {
-      "name":"orange"
+      "value":"orange"
     },
     {
-      "name":"grape"
+      "value":"grape"
     },
     {
-      "name":"tomato"
+      "value":"tomato"
     }
   ]
 

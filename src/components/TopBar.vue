@@ -5,7 +5,7 @@
     <el-row type="flex" justify="space-between">
       <el-col :span="8">
         <h3 class="logo" style="float: left">
-          <span class="rythm twist1">{{toggTopBar ? 'VUE': 'AUTO VUE'}}</span>
+          <span class="rythm twist1">{{toggTopBar ? 'VUE': 'CCNU'}}</span>
         </h3>
         <div style="margin-left: 150px" class="animated bounceInDown imgWrap">
           <img src="../../static/img/little.gif"  height="60px" class="gif rythm pulse3"  @click="toggleDance">
@@ -16,7 +16,7 @@
       </el-col>
       <el-col :span="8">
         <el-row type="flex" class="row-right" justify="end">
-          <el-col :span="4">
+          <el-col :span="8">
             <a class="animated fadeIn">{{$t('m.topbar.sayHi')}}，{{userName}}</a>
           </el-col>
           <el-col :span="3">
@@ -110,7 +110,7 @@
       logout() {
         localStorage.clear()
         bus.$emit('stopMusic')
-        this.$router.push('signin')
+        this.$router.push('/signin')
       }
     },
     watch: {

@@ -1,5 +1,5 @@
 <template>
-  <div v-title="'项目信息'">
+  <div v-title="'首页'">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <i class="el-icon-edit"></i>&nbsp;&nbsp;
@@ -35,6 +35,7 @@
 <script>
   import {getRecommend, getDiscList} from "../../api/recommend";
   import {ERR_OK} from "../../api/config";
+  import Bus from '@/bus'
 
   export default {
     name: "projectinfo",
@@ -47,6 +48,10 @@
     created() {
       this._getRecommend()
       this._getDiscList()
+      Bus.$on('data', (res) =>{
+        console.log('home')
+      })
+
     },
     methods: {
       _getRecommend() {

@@ -34,29 +34,22 @@
     },
     methods: {
       querySearchAsync(queryString, callback) {
-        var list = [{}];
+        let list = [{}]
         //从后台获取到对象数组
-        let self = this
-
-        jsonp("https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su", {
-            wd: queryString
-          },
-          {
-            param: 'cb'
-          }).then(function (res) {
-          list = res.s;
-          console.log(list)
-          callback(list)
-        }, function () {
-
-        });
+        this.$axios.get('../static/search_data.json')
+          .then(
+            (res => {
+              callback(res.data.getlist)
+            })
+          )
       },
       handleSelect(item) {
         console.log(item);
         //do something
       },
       Search(){
-        Bus.$emit('data', this.query)
+        localStorage.query = this.query
+        console.log('query:' + localStorage.query)
       },
       get() {
         let self = this

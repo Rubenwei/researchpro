@@ -1,12 +1,12 @@
 <template>
   <div :style="{width: '100%', height: '500px'}">
-    <div id="myChart" :style="{width: '100%', height:'90%'}"></div>
+    <div id="myChart" :style="{width: '100%', height:'90%'}">
+    </div>
   </div>
 
 </template>
 
 <script>
-  import Bus from '../../bus'
   export default {
     name: 'echart',
     data () {
@@ -14,26 +14,22 @@
         query:''
       }
     },
-    mounted() {
-      Bus.$on('data', (res) => {
-        this.query = res
-        console.log('query传入Echart组件的mounted中')
-        console.log('query:' + this.query)
-        this.drawLine()
-      })
-
+    mounted(){
+      this.drawLine()
     },
     methods: {
       drawLine(){
-        console.log('进入echart组件的drawLine函数')
-        console.log('query:' + this.query)
+        console.log('进入MediaIndexChart的drawLine函数')
+        console.log('localStorage.query:' + localStorage.query)
+        this.query = localStorage.query
         let myChart = this.$echarts.init(document.getElementById('myChart'));
         let base = +new Date(2011, 0, 0);
         let oneDay = 24 * 3600 * 1000;
         let date = [];
 
         var url = 'api/searchindexdata?message=' + this.query
-        this.$axios.get('url')
+        console.log('url:' + url)
+        this.$axios.get('../static/data.json')
           .then(
             (res) => {
               let data = res.data;

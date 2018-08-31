@@ -5,20 +5,18 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <i class="el-icon-edit"></i>&nbsp;&nbsp;
-            <span>echart图api</span>
-
+            <span>{{query}}</span>
           </div>
-          <el-menu style="margin-left: 10%" background-color="#ecf5ff" text-color="#ddd" :default-active="$route.path" :router="true" mode="horizontal">
-            <el-menu-item index="/index/searchchart">
-              <i class="el-icon-document"></i>
-              <span slot="title">搜索指数</span>
-            </el-menu-item>
-            <el-menu-item index="/index/mediachart">
-              <i class="el-icon-date"></i>
-              <span slot="title">媒体指数</span>
-            </el-menu-item>
-          </el-menu>
-          <router-view></router-view>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <search-index-chart></search-index-chart>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <media-index-chart></media-index-chart>
         </el-card>
       </el-col>
     </el-row>
@@ -28,6 +26,7 @@
   import searchindexechart from '../../components/charts/SearhIndexChart'
   import mediaindexechart from '../../components/charts/MediaIndexChart'
   import search from '../../components/Search'
+  import Bus from '../../bus'
 
   export default {
     name: "weather",
@@ -39,8 +38,15 @@
 
 
     },
+    data(){
+      return {
+        query:localStorage.query
+      }
+    },
     mounted(){
-
+      Bus.$on('query', (res)=>{
+        this.query = res
+      })
     },
     methods:{
 

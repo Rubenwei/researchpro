@@ -34,12 +34,13 @@
     },
     methods: {
       querySearchAsync(queryString, callback) {
-        let list = [{}]
+       let url = 'api/getnamelist?message=' + this.query
+
         //从后台获取到对象数组
-        this.$axios.get('../static/search_data.json')
+        this.$axios.get('static/data.json')
           .then(
             (res => {
-              callback(res.data.getlist)
+              callback(res.data)
             })
           )
       },
@@ -49,6 +50,10 @@
       },
       Search(){
         localStorage.query = this.query
+        Bus.$emit('query', localStorage.query)
+        this.$router.push({path:'index'});
+
+        // localStorage.query = this.query
         console.log('query:' + localStorage.query)
       },
       get() {

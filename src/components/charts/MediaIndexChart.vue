@@ -1,12 +1,13 @@
 <template>
   <div :style="{width: '100%', height: '500px'}">
-    <div id="myChart" :style="{width: '100%', height:'90%'}">
+    <div id="MediaChart" :style="{width: '100%', height:'90%'}">
     </div>
   </div>
 
 </template>
 
 <script>
+  import Bus from '../../bus'
   export default {
     name: 'echart',
     data () {
@@ -15,21 +16,38 @@
       }
     },
     mounted(){
+      Bus.$on('query', (res)=>{
+        console.log('mounted:' + localStorage.query)
+        this.drawLine()
+      })
       this.drawLine()
+    },
+    watch:{
+      '$route.path': function (newVal, oldVal) {
+        if(newVal === '/index'){
+          console.log(newVal)
+          this.drawLine()
+        }
+      }
     },
     methods: {
       drawLine(){
         console.log('进入MediaIndexChart的drawLine函数')
-        console.log('localStorage.query:' + localStorage.query)
+        console.log('query:' + localStorage.query)
         this.query = localStorage.query
-        let myChart = this.$echarts.init(document.getElementById('myChart'));
+        if(document.getElementById('MediaChart') == null){
+          return 0
+        }
+
+        let myChart = this.$echarts.init(document.getElementById('MediaChart'));
         let base = +new Date(2011, 0, 0);
         let oneDay = 24 * 3600 * 1000;
         let date = [];
 
         var url = 'api/searchindexdata?message=' + this.query
         console.log('url:' + url)
-        this.$axios.get('../static/data.json')
+
+        this.$axios.get('static/data.json')
           .then(
             (res) => {
               let data = res.data;
@@ -37,6 +55,7 @@
                 let now = new Date(base += oneDay);
                 date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
               }
+              // date = data.time
               myChart.setOption({
                 tooltip: {
                   trigger: 'axis',

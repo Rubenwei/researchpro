@@ -1,6 +1,6 @@
 <template>
   <div :style="{width: '100%', height: '500px'}">
-    <div id="myChart" :style="{width: '100%', height:'90%'}"></div>
+    <div id="SearchChart" :style="{width: '100%', height:'90%'}"></div>
   </div>
 
 </template>
@@ -15,21 +15,38 @@
       }
     },
     mounted(){
+      Bus.$on('query', (res)=>{
+        console.log('mounted:' + localStorage.query)
+        this.drawLine()
+      })
+      console.log('进入到mounted的drawline')
       this.drawLine()
     },
-
+    watch:{
+      '$route.path': function (newVal, oldVal) {
+        if(newVal === '/index'){
+          console.log(newVal)
+          this.drawLine()
+        }
+      }
+    },
     methods: {
       drawLine(){
         console.log('进入echart组件的drawLine函数')
-        console.log('localStorage.query:' + localStorage.query)
+        console.log('query:' + localStorage.query)
         this.query = localStorage.query
-        let myChart = this.$echarts.init(document.getElementById('myChart'));
+        if(document.getElementById('MediaChart') ==null){
+          return 0
+        }
+        let myChart = this.$echarts.init(document.getElementById('SearchChart'));
         let base = +new Date(2011, 0, 0);
         let oneDay = 24 * 3600 * 1000;
         let date = [];
 
-        var url = 'api/searchindexdata?message=' + this.query
-        this.$axios.get('../static/data.json')
+        var url = '../api/searchindexdata?message=' + this.query
+        console.log('url:' + url)
+
+        this.$axios.get('static/data.json')
           .then(
             (res) => {
               let data = res.data;
@@ -37,6 +54,7 @@
                 let now = new Date(base += oneDay);
                 date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
               }
+              // date = data.time
               myChart.setOption({
                 tooltip: {
                   trigger: 'axis',

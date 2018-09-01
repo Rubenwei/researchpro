@@ -17,8 +17,9 @@ export default {
   mounted(){
     Bus.$on('query', (res)=>{
       this.query = localStorage.query
-      console.log('authorrity:' + this.query)
+      console.log('authority:' + this.query)
     })
+    console.log('我在测试组件里')
   },
   computed: {
     isAdminAble() {

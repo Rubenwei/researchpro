@@ -51,11 +51,12 @@ const router = new Router({
                 requireAuth: true
             },
             component: Layout,
+            redirect: '/signin',
             children: [{
-                    path: 'home',
-                    meta: { requireAuth: true },
-                    component: Home
-                },
+                      path: 'home',
+                      meta: { requireAuth: true },
+                      component: Home
+                  },
                 {
                     path: 'project-info',
                     meta: { requireAuth: true },

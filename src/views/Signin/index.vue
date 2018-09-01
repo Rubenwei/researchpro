@@ -1,7 +1,7 @@
 <template>
     <div class="bg">
         <div class="login-wrap animated flipInY" v-title="'Auto Vue'">
-            <h3>Auto Vue</h3>
+            <h3>Search Things</h3>
             <Search></Search>
         </div>
         <!-- 粒子漂浮物 -->
@@ -45,7 +45,6 @@ export default {
         url: "getMenu",
         method: "GET"
       }).then(res => {
-        console.log(res);
         // 提取菜单数组，交给本地存储
         let menu = res.data.data.menu;
         localStorage.menu = JSON.stringify(menu);

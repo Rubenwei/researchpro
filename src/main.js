@@ -132,24 +132,24 @@ axios.interceptors.request.use(
     }
 )
 
-// http response 拦截器
-axios.interceptors.response.use(
-    response => {
-        return response
-    },
-    error => {
-        if (error.response) {
-            switch (error.response.status) {
-                // 如果后端返回没有权限
-                case 401:
-                    // 清除token信息并跳转到登录页面
-                    localStorage.clear()
-                    router.replace("/signin");
-            }
-        }
-        return Promise.reject(error.response.data) // 返回接口返回的错误信息
-    }
-)
+// // http response 拦截器
+// axios.interceptors.response.use(
+//     response => {
+//         return response
+//     },
+//     error => {
+//         if (error.response) {
+//             switch (error.response.status) {
+//                 // 如果后端返回没有权限
+//                 case 401:
+//                     // 清除token信息并跳转到登录页面
+//                     localStorage.clear()
+//                     router.replace("/signin");
+//             }
+//         }
+//         return Promise.reject(error.response.data) // 返回接口返回的错误信息
+//     }
+// )
 
 new Vue({
     el: '#app',

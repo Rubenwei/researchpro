@@ -4,18 +4,7 @@
     <div id="navbar-wrap" >
         <el-menu style="margin: auto; position: relative" background-color="#ecf5ff" text-color="#ddd" :default-active="$route.path" :unique-opened="isUnique" :router="isRouter" mode="horizontal" :collapse="toggSiderBar">
             <template v-for="item in menu">
-                <el-submenu v-if="item.children.length !== 0" :index="item.router" :key="item.router">
-                    <template slot="title">
-                        <i :class="item.icon"></i>
-                        <span slot="title">{{langType === 'en'? item.name_en: item.name}}</span>
-                    </template>
-                    <el-menu-item v-for="child in item.children" :index="child.router" :key="child.router">
-                        <i :class="child.icon"></i>
-                        <span slot="title">{{langType === 'en'? child.name_en: child.name}}</span>
-                    </el-menu-item>
-                </el-submenu>
-
-                <el-menu-item v-else :index="item.router" :key="item.router">
+                <el-menu-item :index="item.router" :key="item.router">
                     <i :class="item.icon"></i>
                     <span slot="title">{{langType === 'en'? item.name_en: item.name}}</span>
                 </el-menu-item>

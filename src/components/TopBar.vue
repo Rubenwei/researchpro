@@ -110,7 +110,7 @@
       logout() {
         localStorage.clear()
         bus.$emit('stopMusic')
-        this.$router.push('/signin')
+        this.$router.push('/start')
       }
     },
     watch: {

@@ -1,33 +1,34 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// 登录
-const Signin = resolve => require(['@/views/Signin'], resolve)
+// 开始
+const Start = resolve => require(['@/views/Start'], resolve)
 
-// 非登录页的包裹组件
+// 布局
 const Layout = resolve => require(['@/views/Layout'], resolve)
 
+// 主页
 const Home = resolve => require(['@/views/Home'], resolve)
 
-// 项目信息
-const ProjectInfo = resolve => require(['@/views/ProjectInfo'], resolve)
-
-// 关于作者
-const About = resolve => require(['@/views/About'], resolve)
-
-// 天气预报
+// 指数统计
 const Index = resolve => require(['@/views/Index'], resolve)
+
+// 事件简介
+const EventIntro = resolve => require(['@/views/EventIntro'], resolve)
+
+// 事件相关
+const EventAbout = resolve => require(['@/views/EventAbout'], resolve)
+
+// 媒体资源
+const Resource = resolve => require(['@/views/Resource'], resolve)
+
 
 //搜索指数
 import SearchChart from '../components/charts/SearhIndexChart'
+//媒体指数
 import MediaChart from '../components/charts/MediaIndexChart'
 
-
-    // 立方体
-const Cube = resolve => require(['@/views/Cube'], resolve)
-    // 权限测试
-const AuthorityTest = resolve => require(['@/views/AuthorityTest'], resolve)
-    // 404
+// 404
 const Notfound = resolve => require(['@/views/Notfound'], resolve)
 
 Vue.use(Router)
@@ -37,12 +38,12 @@ const router = new Router({
     routes: [
         // 首先是登录页的路由
         {
-            path: '/signin',
-            name: 'Signin',
+            path: '/start',
+            name: 'Start',
             meta: {
                 requireAuth: false
             },
-            component: Signin
+            component: Start
         },
         // 然后就是嵌套路由了，也就是登陆后的各个页面
         {
@@ -51,47 +52,42 @@ const router = new Router({
                 requireAuth: true
             },
             component: Layout,
-            redirect: '/signin',
+            redirect: '/start',
             children: [{
                       path: 'home',
                       meta: { requireAuth: true },
                       component: Home
                   },
-                {
-                    path: 'project-info',
-                    meta: { requireAuth: true },
-                    component: ProjectInfo
-                },
-                {
-                    path: 'enroll-list',
-                    meta: { requireAuth: true },
-                    component: About
-                },
-                {
-                    path: 'index',
-                    meta: { requireAuth: true },
-                    component: Index,
-                    children: [{
-                      path: 'searchchart',
+                  {
+                      path: 'index',
                       meta: { requireAuth: true },
-                      component: SearchChart
-                    },
-                    {
-                      path: 'mediachart',
+                      component: Index,
+                      // children: [{
+                      //   path: 'searchchart',
+                      //   meta: { requireAuth: true },
+                      //   component: SearchChart
+                      // },
+                      // {
+                      //   path: 'mediachart',
+                      //   meta: { requireAuth: true },
+                      //   component: MediaChart
+                      // }]
+                  },
+                  {
+                    path: 'eventintro',
+                    meta: { requireAuth: true },
+                    component: EventIntro
+                  },
+                  {
+                    path: 'resource',
+                    meta: { requireAuth: true },
+                    component: Resource
+                  },
+                  {
+                      path: 'about',
                       meta: { requireAuth: true },
-                      component: MediaChart
-                    }]
-                },
-                {
-                    path: 'cube',
-                    meta: { requireAuth: true },
-                    component: Cube
-                },
-                {
-                    path: 'authority-test',
-                    meta: { requireAuth: true },
-                    component: AuthorityTest
-                }
+                      component: EventAbout
+                  },
             ]
         },
         // 最后是404页面
@@ -101,16 +97,6 @@ const router = new Router({
             component: Notfound
         }
     ]
-})
-
-// 当一个导航触发时，全局的 before 钩子按照创建顺序调用。钩子是异步解析执行，此时导航在所有钩子 resolve 完之前一直处于等待中。
-router.beforeEach((to, from, next) => {
-    // 如果已经登录，并且要去登录页，就不让TA去登录页，重定向到首页
-    if (to.path === '/signin' && localStorage.token) {
-        next('/project-info')
-    } else {
-        next()
-    }
 })
 
 export default router

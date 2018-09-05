@@ -3,6 +3,17 @@ import {commonParams, options} from "./config";
 
 import axios from 'axios'
 
+//该科技事件
+export function getItem() {
+  const url = 'api/getinfodata?message=' + localStorage.query
+  console.log(url)
+  return axios.get(url).then((res)=>{
+    return res.data
+  })
+}
+
+//----------------------------------------------------------------------------------
+//音乐推荐
 export function getRecommend() {
   const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
 

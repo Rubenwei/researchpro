@@ -29,7 +29,7 @@
   import Bus from '../../bus'
 
   export default {
-    name: "weather",
+    name: "index",
     components: {
       // "line-chart": lineChart,
       'Search': search,

@@ -34,7 +34,7 @@
        let url = 'api/getnamelist?message=' + this.query
 
         //从后台获取到对象数组
-        this.$axios.get('static/search_data.json')
+        this.$axios.get(url)
           .then(
             (res => {
               callback(res.data)

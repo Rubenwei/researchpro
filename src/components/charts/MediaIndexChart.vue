@@ -68,7 +68,7 @@
                   text: this.query,
                 },
                 legend: {
-                  data:['搜索指数','pc趋势','移动趋势']
+                  data:['媒体指数']
                 },
                 toolbox: {
                   feature: {
@@ -107,55 +107,7 @@
                 }],
                 series: [
                   {
-                    name:'搜索指数',
-                    type:'line',
-                    smooth:true,
-                    symbol: 'none',
-                    sampling: 'average',
-                    itemStyle: {
-                      normal: {
-                        color: 'rgb(255, 70, 131)'
-                      }
-                    },
-                    areaStyle: {
-                      normal: {
-                        color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                          offset: 0,
-                          color: 'rgb(255, 158, 68)'
-                        }, {
-                          offset: 1,
-                          color: 'rgb(255, 70, 131)'
-                        }])
-                      }
-                    },
-                    data: data.searchindex
-                  },
-                  {
-                    name:'pc趋势',
-                    type:'line',
-                    smooth:true,
-                    symbol: 'none',
-                    sampling: 'average',
-                    itemStyle: {
-                      normal: {
-                        color: '#d4fc79'
-                      }
-                    },
-                    areaStyle: {
-                      normal: {
-                        color: new this.$echarts.graphic.LinearGradient(0, 0, 255, 1, [{
-                          offset: 0,
-                          color: '#d4fc79'
-                        }, {
-                          offset: 1,
-                          color: '#96e6a1'
-                        }])
-                      }
-                    },
-                    data: data.pcindex
-                  },
-                  {
-                    name:'移动趋势',
+                    name:'媒体指数',
                     type:'line',
                     smooth:true,
                     symbol: 'none',

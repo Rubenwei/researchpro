@@ -25,7 +25,6 @@
         this._getItem()
       })
       this._getItem()
-
     },
     methods:{
       _getItem(){

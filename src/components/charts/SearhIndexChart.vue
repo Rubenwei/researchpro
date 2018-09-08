@@ -54,7 +54,7 @@
                 let now = new Date(base += oneDay);
                 date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
               }
-              // date = data.time
+              //date = data.time
               myChart.setOption({
                 tooltip: {
                   trigger: 'axis',

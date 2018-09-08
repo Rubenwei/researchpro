@@ -1,190 +1,94 @@
 <template>
-  <div class="cube-wrap" v-title="'Introduction'">
-    <div id="container" :style="{width: '100%', height:'400px'}"></div>
-    <!--绝对定位问题-->
-    <!--模拟数据问题-->
-    <p>
-      {{ intro }}
-    </p>
-    <h1 class="ChiName">
-      {{ChiName}}
-    </h1>
-    <h2>
-      {{EngName}}
-    </h2>
-    <ul>
-      <li v-for="item in items">{{item}}</li>
-    </ul>
-    <button>
-      view more
-    </button>
+  <div v-title="'Introduction'">
+    <el-row>
+      <el-col :span="12"><div class="grid-content bg-purple">
+        <div id="container" :style="{width: '100%', height:'400px'}"></div>
+        <button>
+          view more
+        </button>
+      </div>
+      </el-col>
+      <el-col :span="12"><div class="grid-content bg-purple-light">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>{{ ChiName + '(' + EngName + ')'}}</span>
+          </div>
+          <div class="text item">
+            <p v-for="msg in Intro">
+              {{msg}}
+            </p>
+          </div>
+        </el-card>
+      </div>
+      </el-col>
+    </el-row>
   </div>
-  <!--<div id="container" :style="{width: '100%', height:'90%'}"></div>-->
 </template>
 <script>
+  import {getItem} from '../../api/recommend'
+  import Bus from '../../bus'
   export default {
     name: "eventintro",
     data () {
       return{
-        items:['事件一','事件二', '事件三'],
+        // items:['事件一','事件二', '事件三'],
         ChiName:'中文名称',
         EngName:'英文名称',
-        intro:'      文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍\n',
+        Country:'中国',
+        Subject: '类别学科',
+        Time:'时间',
+        Intro:['我是第一段文字','我是第二段文字','我是第三段文字','我是第四段文字'],
+        Level:20
       }
     },
     mounted(){
-      this.drawChart()
+      Bus.$on('query', (res)=>{
+        this._getItem()
+      })
+      this._getItem()
     },
     methods:{
+      _getItem(){
+        getItem().then((res)=>{
+          console.log(res)
+          this.ChiName = res.cnname
+          this.EngName = res.engname
+          this.Country = res.country
+          this.Subject = res.subject
+          this.Time = res.time
+          this.Intro = res.info
+          this.Level = res.level
+          this.drawChart()
+        })
+      },
       drawChart(){
-        let myChart = this.$echarts.init(document.getElementById('container'));
-        // var dom = document.getElementById("container");
-        // var myChart = echarts.init(dom);
+        var dom = document.getElementById("container");
+        var myChart = this.$echarts.init(dom);
         var app = {};
+        let option = {
 
-        app.title = '柱状图框选';
-
-        var xAxisData = [];
-        var data1 = [];
-        var data2 = [];
-        var data3 = [];
-        var data4 = [];
-
-        for (var i = 0; i < 10; i++) {
-          xAxisData.push('Class' + i);
-          data1.push((Math.random() * 2).toFixed(2));
-          data2.push(-Math.random().toFixed(2));
-          data3.push((Math.random() * 5).toFixed(2));
-          data4.push((Math.random() + 0.3).toFixed(2));
-        }
-
-        var itemStyle = {
-          normal: {
-          },
-          emphasis: {
-            barBorderWidth: 1,
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowOffsetY: 0,
-            shadowColor: 'rgba(0,0,0,0.5)'
-          }
-        };
-
-         let option = {
-          backgroundColor: '#eee',
-          legend: {
-            data: ['bar', 'bar2', 'bar3', 'bar4'],
-            align: 'left',
-            left: 10
-          },
-          brush: {
-            toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
-            xAxisIndex: 0
-          },
-          toolbox: {
-            feature: {
-              magicType: {
-                type: ['stack', 'tiled']
-              },
-              dataView: {}
-            }
-          },
-          tooltip: {},
-          xAxis: {
-            data: xAxisData,
-            name: 'X Axis',
-            silent: false,
-            axisLine: {onZero: true},
-            splitLine: {show: false},
-            splitArea: {show: false}
-          },
-          yAxis: {
-            inverse: true,
-            splitArea: {show: false}
-          },
-          grid: {
-            left: 100
-          },
-          visualMap: {
-            type: 'continuous',
-            dimension: 1,
-            text: ['High', 'Low'],
-            inverse: true,
-            itemHeight: 200,
-            calculable: true,
-            min: -2,
-            max: 6,
-            top: 60,
-            left: 10,
-            inRange: {
-              colorLightness: [0.4, 0.8]
-            },
-            outOfRange: {
-              color: '#bbb'
-            },
-            controller: {
-              inRange: {
-                color: '#2f4554'
-              }
-            }
-          },
+          // toolbox: {
+          //   feature: {
+          //     restore: {},
+          //     saveAsImage: {}
+          //   }
+          // },
           series: [
             {
-              name: 'bar',
-              type: 'bar',
-              stack: 'one',
-              itemStyle: itemStyle,
-              data: data1
-            },
-            {
-              name: 'bar2',
-              type: 'bar',
-              stack: 'one',
-              itemStyle: itemStyle,
-              data: data2
-            },
-            {
-              name: 'bar3',
-              type: 'bar',
-              stack: 'two',
-              itemStyle: itemStyle,
-              data: data3
-            },
-            {
-              name: 'bar4',
-              type: 'bar',
-              stack: 'two',
-              itemStyle: itemStyle,
-              data: data4
+              name: '事件重大等级程度',
+              type: 'gauge',
+              detail: {formatter:'{value}%'},//这个地方的百分数应该改为等级程度
+              data: [{value: this.Level, name: '事件重大等级'}]
             }
           ]
         };
 
-        myChart.on('brushSelected', renderBrushed);
+        // setInterval(function () {
+        //   option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+        //   option.series[0].data[0].value = 20;
+        //   myChart.setOption(option, true);
+        // },2000);
 
-        function renderBrushed(params) {
-          var brushed = [];
-          var brushComponent = params.batch[0];
-
-          for (var sIdx = 0; sIdx < brushComponent.selected.length; sIdx++) {
-            var rawIndices = brushComponent.selected[sIdx].dataIndex;
-            brushed.push('[Series ' + sIdx + '] ' + rawIndices.join(', '));
-          }
-
-          myChart.setOption({
-            title: {
-              backgroundColor: '#333',
-              text: 'SELECTED DATA INDICES: \n' + brushed.join('\n'),
-              bottom: 0,
-              right: 0,
-              width: 100,
-              textStyle: {
-                fontSize: 12,
-                color: '#fff'
-              }
-            }
-          });
-        };
         if (option && typeof option === "object") {
           myChart.setOption(option, true);
         }
@@ -194,31 +98,10 @@
 </script>
 
 <style scoped lang="less">
-  p{
-    position: absolute;
-    top: 35%;
-    right: 13%;
-    width: 200px;
-    border: 2px solid #D1EEEE;
-    padding: 120px;
-    font-size: 20px;
-  }
-  h1{
-    position: absolute;
-    right:25%;
-    top: 20%;
-    font-weight: lighter;
-  }
-  h2{
-    position: absolute;
-    right: 20%;
-    top:29%;
-    font-weight: lighter;
-  }
   button {
     position: absolute;
-    bottom: 8%;
-    left: 22%;
+    bottom: 15%;
+    left: 20.5%;
     width: 120px;
     padding:6px;
     background-color: #63B8FF;
@@ -233,5 +116,34 @@
     border: 1px solid transparent;
     font-weight: lighter;
     font-size:110%
+  }
+  .text {
+    position: relative;
+    font-size: 25px;
+    height: 200px;
+    overflow-y: auto;//不用加窗口，这行代码可以使内容超过200px自动出现滚动条
+  }
+
+  .item {
+    margin-bottom: 18px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .box-card {
+    margin: 40px;
+    width: 480px;
+    height: 360px;
+  }
+  .clearfix{
+    text-align: center;
+    font-size: 35px;
   }
 </style>

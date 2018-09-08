@@ -16,9 +16,6 @@
       </el-col>
       <el-col :span="8">
         <el-row type="flex" class="row-right" justify="end">
-          <el-col :span="8">
-            <a class="animated fadeIn">{{$t('m.topbar.sayHi')}}，{{userName}}</a>
-          </el-col>
           <el-col :span="3">
             <i class="fa fa-language" title="切换语言" @click="toggleLanguage"></i>
           </el-col>
@@ -48,7 +45,6 @@
       return {
         isMusicOn: false,
         isUnique: true,
-        userName: localStorage.userName || ''
       };
     },
     components:{

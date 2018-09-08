@@ -1,78 +1,107 @@
 <template>
   <div v-title="'相关事件的等级'">
-
-    <!--如果做成动画效果可以用css3的animate.css实现，项目里安装了-->
-    <!--像这样在class里面引用相应的动画就可以很酷炫-->
-    <!--<div class="login-wrap animated flipInY" v-title="'Auto Vue'">-->
-      <!--<h3>Auto Vue</h3>-->
-      <!--<Search></Search>-->
-    <!--</div>-->
-
-    <!--有些其他友好的交互体验效果不能用jquery写，因为vue是设计出来不是操作dom的-->
-    <!--像这样写js代码 实现了锚点效果-->
-    <!--jump (index) {-->
-    <!--let jump = document.querySelectorAll('.item')-->
-    <!--let total = jump[index].offsetTop-->
-    <!--let distance = document.documentElement.scrollTop || document.body.scrollTop-->
-    <!--// console.log('total:'+total)-->
-    <!--// console.log('distance:' + distance)-->
-    <!--// 平滑滚动，时长500ms，每10ms一跳，共50跳-->
-    <!--let step = total / 50-->
-    <!--console.log(step)-->
-    <!--if (total > distance) {-->
-    <!--smoothDown()-->
-    <!--} else {-->
-    <!--let newTotal = distance - total-->
-    <!--step = newTotal / 50-->
-    <!--smoothUp()-->
-    <!--}-->
-
-    <h1>
-      相关事件的等级介绍
-    </h1>
-    <h2 class="前导">
-      前导事件名称：
-    </h2>
-    <h2 class="后继">
-      后继事件名称：
-    </h2>
-    <button class="button1">
-      view
-    </button>
-    <button class="button2">
-      view
-    </button>
-    <img class="image1" src=""/>
-    <!--这个地方我想的是把等级用一个圆形图标展现出来-->
-    <img class="image2" src=""/>
-    <p class="箭头1">&#8595</p>
-    <p class="箭头2">&#8595</p>
-
-
+    <el-col>
+      <el-row :span="12" class="i1">
+        <el-col :span="16" align="center">
+          <el-col :span="9" align="right">
+            <h2 class="前导">前导事件名称：</h2>
+          </el-col>
+          <el-col :span="9" align="center">
+            <div class="image1">
+              <p>{{ grade1 }}</p>
+            </div>
+          </el-col>
+          <el-col :span="2" align="right">
+            <button class="button1">view</button>
+          </el-col>
+        </el-col>
+        <el-col :span="8">
+          <div class="image3">
+            <p>{{ item1 }}</p>
+          </div>
+          <p class="箭头1">&#8595</p>
+          <div class="image4">
+            <p>{{ item2 }}</p>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :span="12">
+        <el-col :span="16" align="center">
+          <el-col :span="9" align="right">
+            <h2 class="后继">后继事件名称：</h2>
+          </el-col>
+          <el-col :span="9" align="center">
+            <div class="image2">
+              <p>{{ grade2 }}</p>
+            </div>
+          </el-col>
+          <el-col :span="2" align="right">
+            <button class="button2">view</button>
+          </el-col>
+        </el-col>
+        <el-col :span="8" align="left">
+          <p class="箭头2">&#8595</p>
+          <div class="image5">
+            <p>{{ item3 }}</p>
+          </div>
+        </el-col>
+      </el-row>
+    </el-col>
   </div>
 </template>
-
+<script>
+  export default {
+    data() {
+      return {
+        grade1: 1,//前导事件等级
+        grade2: 2,//后继事件等级,
+        item1 : '前导事件',
+        item2 : '中间事件',
+        item3 : '后继事件',
+      }
+    }
+  }
+</script>
 <style>
+  h1{
+    position: relative;
+    left: 10%;
+  }
   .image1{
-    position: absolute;
-    top: 35%;
-    left: 38%;
+    background-image: url('../../../static/img/sky.jpg');/*按理说这里放上正确的图片地址就可以显示出图上加字的效果了*/
     width:80px;
     height:80px;
-    border-radius:200px;
+    border-radius:20px;/*放上图片后改border-radius的值可以改变圆角程度*/
   }
   .image2{
-    position: absolute;
-    bottom: 23%;
-    left: 38%;
+    background-image: url('../../../static/img/sky.jpg');
+    width:80px;
+    height:80px;
+    border-radius:20px;
+  }
+  .image3{
+    background-image: url('../../../static/img/sky.jpg');
     width:80px;
     height:80px;
     border-radius:200px;
+  }.image4{
+       background-image: url('../../../static/img/sky.jpg');
+     width:80px;
+     height:80px;
+     border-radius:200px;
+   }.image5{
+      background-image: url('../../../static/img/sky.jpg');
+      width:80px;
+      height:80px;
+      border-radius:200px;
+    }
+  p{
+    position: relative;
+    margin: 0;
   }
   button.button1{
-    position: absolute;
-    top: 42%;
-    right: 40%;
+    position: relative;
+    margin :10px;
     width: 120px;
     padding:6px;
     background-color: #63B8FF;
@@ -89,9 +118,8 @@
     font-size:110%
   }
   button.button2{
-    position: absolute;
-    bottom: 25%;
-    right: 40%;
+    position: relative;
+    margin :10px;
     width: 120px;
     padding:6px;
     background-color: #63B8FF;
@@ -107,34 +135,21 @@
     font-weight: lighter;
     font-size:110%
   }
-  h1{
-    position: absolute;
-    left: 5%;
-    top: 20%;
-  }
   h2.前导{
-    position: absolute;
-    left: 20%;
-    top: 38%;
     font-weight: lighter;
   }
   h2.后继{
-    position: absolute;
-    left: 20%;
-    bottom:23%;
     font-weight: lighter;
   }
   .箭头1{
-    position: absolute;
+    margin-top: 0px;
+    margin-left: 13px;
     font-size: 80px;
-    right: 25%;
-    top: 20%;
     color: #ff4949;
   }
   .箭头2{
-    position: absolute;
-    bottom: 10%;
-    right: 25%;
+    margin: 0;
+    margin-left: 13px;
     font-size: 80px;
     color: #ff4949;
   }

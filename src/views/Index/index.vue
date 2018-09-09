@@ -1,22 +1,26 @@
 <template>
   <div  v-title="'天气预报'">
+    <el-card>
+      <el-row :gutter="20">
+        <el-col :span="8">
+          最高：
+        </el-col>
+        <el-col :span="8">
+          平均：
+        </el-col>
+        <el-col :span="8">
+          比率：
+        </el-col>
+      </el-row>
+    </el-card>
     <el-row :gutter="20">
       <el-col :span="24">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <i class="el-icon-edit"></i>&nbsp;&nbsp;
-            <span>{{query}}</span>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card class="box-card">
-          <search-index-chart></search-index-chart>
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card class="box-card">
-          <media-index-chart></media-index-chart>
+        <el-card>
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+              <el-tab-pane label="搜索指数" name="first" :lazy='true'><search-index-chart></search-index-chart></el-tab-pane>
+              <el-tab-pane label="媒体指数" name="second" :lazy='true'><media-index-chart></media-index-chart>
+              </el-tab-pane>
+            </el-tabs>
         </el-card>
       </el-col>
     </el-row>
@@ -35,12 +39,11 @@
       'Search': search,
       'search-index-chart': searchindexechart,
       'media-index-chart': mediaindexechart
-
-
     },
     data(){
       return {
-        query:localStorage.query
+        query:localStorage.query,
+        activeName: 'second'
       }
     },
     mounted(){
@@ -49,6 +52,9 @@
       })
     },
     methods:{
+      handleClick(tab, event) {
+        console.log(tab, event);
+      }
 
     }
 

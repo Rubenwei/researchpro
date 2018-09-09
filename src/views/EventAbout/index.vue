@@ -1,52 +1,54 @@
 <template>
   <div v-title="'相关事件的等级'">
-    <el-col>
-      <el-row :span="12" class="i1">
-        <el-col :span="16" align="center">
-          <el-col :span="9" align="right">
-            <h2 class="前导">前导事件名称：</h2>
+    <el-card>
+      <el-col>
+        <el-row :span="12" class="i1">
+          <el-col :span="16" align="center">
+            <el-col :span="9" align="right">
+              <h2 class="前导">前导事件名称：{{}}</h2>
+            </el-col>
+            <el-col :span="9" align="center">
+              <div class="image1">
+                <p>{{ grade1 }}</p>
+              </div>
+            </el-col>
+            <el-col :span="2" align="right">
+              <button class="button1">view</button>
+            </el-col>
           </el-col>
-          <el-col :span="9" align="center">
-            <div class="image1">
-              <p>{{ grade1 }}</p>
+          <el-col :span="8">
+            <div class="image3">
+              <p>{{ item1 }}</p>
+            </div>
+            <p class="箭头1">&#8595</p>
+            <div class="image4">
+              <p>{{ item2 }}</p>
             </div>
           </el-col>
-          <el-col :span="2" align="right">
-            <button class="button1">view</button>
+        </el-row>
+        <el-row :span="12">
+          <el-col :span="16" align="center">
+            <el-col :span="9" align="right">
+              <h2 class="后继">后继事件名称：{{}}</h2>
+            </el-col>
+            <el-col :span="9" align="center">
+              <div class="image2">
+                <p>{{ grade2 }}</p>
+              </div>
+            </el-col>
+            <el-col :span="2" align="right">
+              <button class="button2">view</button>
+            </el-col>
           </el-col>
-        </el-col>
-        <el-col :span="8">
-          <div class="image3">
-            <p>{{ item1 }}</p>
-          </div>
-          <p class="箭头1">&#8595</p>
-          <div class="image4">
-            <p>{{ item2 }}</p>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row :span="12">
-        <el-col :span="16" align="center">
-          <el-col :span="9" align="right">
-            <h2 class="后继">后继事件名称：</h2>
-          </el-col>
-          <el-col :span="9" align="center">
-            <div class="image2">
-              <p>{{ grade2 }}</p>
+          <el-col :span="8" align="left">
+            <p class="箭头2">&#8595</p>
+            <div class="image5">
+              <p>{{ item3 }}</p>
             </div>
           </el-col>
-          <el-col :span="2" align="right">
-            <button class="button2">view</button>
-          </el-col>
-        </el-col>
-        <el-col :span="8" align="left">
-          <p class="箭头2">&#8595</p>
-          <div class="image5">
-            <p>{{ item3 }}</p>
-          </div>
-        </el-col>
-      </el-row>
-    </el-col>
+        </el-row>
+      </el-col>
+    </el-card>
   </div>
 </template>
 <script>

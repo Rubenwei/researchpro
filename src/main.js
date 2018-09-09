@@ -14,7 +14,9 @@ import 'font-awesome/less/font-awesome.less'
 import 'directives/customTitle.js'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-
+//引入视频插件
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
 // 在入口处引入模拟的假数据
 import '@/mock'
 

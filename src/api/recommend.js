@@ -8,6 +8,7 @@ export function getItem() {
   const url = 'api/getinfodata?message=' + localStorage.query
   console.log('intro:' + url)
   return axios.get('static/intro.json').then((res)=>{
+    console.log(res)
     return res.data
   })
 }

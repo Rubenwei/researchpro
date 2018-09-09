@@ -1,26 +1,41 @@
 <template>
   <div v-title="'Introduction'">
+    <div class ="first">
+      <el-row>
+        <h1 class="title">
+          {{ ChiName + '(' + EngName + ')' }}
+        </h1>
+      </el-row>
+      <el-row>
+          <el-col :span="10" align="center">
+            <img src="../../../static/img/wechat.jpg" style="width: 200px; height: 200px">
+          </el-col>
+          <el-col :span="14">
+            <dl>
+              <dt>中文名：</dt>
+              <dd>{{ChiName}}</dd>
+              <dt>英文名：</dt>
+              <dd>{{EngName}}</dd>
+              <dt>国家：</dt>
+              <dd>{{Country}}</dd>
+              <dt>类别：</dt>
+              <dd>{{Subject}}</dd>
+              <dt>时间：</dt>
+              <dd>{{Time}}</dd>
+              <dt>重大等级：</dt>
+              <dd>{{grade}}</dd>
+            </dl>
+          </el-col>
+      </el-row>
+    </div>
+    <hr size="5px">
+    <el-row class="text">
+      <p v-for="info in Intro">
+        {{info}}
+      </p>
+    </el-row>
     <el-row>
-      <el-col :span="12"><div class="grid-content bg-purple">
-        <div id="container" :style="{width: '100%', height:'400px'}"></div>
-        <button>
-          view more
-        </button>
-      </div>
-      </el-col>
-      <el-col :span="12"><div class="grid-content bg-purple-light">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>{{ ChiName + '(' + EngName + ')'}}</span>
-          </div>
-          <div class="text item">
-            <p v-for="msg in Intro">
-              {{msg}}
-            </p>
-          </div>
-        </el-card>
-      </div>
-      </el-col>
+      <button>view more</button>
     </el-row>
   </div>
 </template>
@@ -38,7 +53,7 @@
         Subject: '类别学科',
         Time:'时间',
         Intro:['我是第一段文字','我是第二段文字','我是第三段文字','我是第四段文字'],
-        Level:20
+        grade: 2
       }
     },
     mounted(){
@@ -57,51 +72,30 @@
           this.Subject = res.subject
           this.Time = res.time
           this.Intro = res.info
-          this.Level = res.level
-          this.drawChart()
+          this.grade = res.grade
+          console.log(res.cnname)
         })
       },
-      drawChart(){
-        var dom = document.getElementById("container");
-        var myChart = this.$echarts.init(dom);
-        var app = {};
-        let option = {
-
-          // toolbox: {
-          //   feature: {
-          //     restore: {},
-          //     saveAsImage: {}
-          //   }
-          // },
-          series: [
-            {
-              name: '事件重大等级程度',
-              type: 'gauge',
-              detail: {formatter:'{value}%'},//这个地方的百分数应该改为等级程度
-              data: [{value: this.Level, name: '事件重大等级'}]
-            }
-          ]
-        };
-
-        // setInterval(function () {
-        //   option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-        //   option.series[0].data[0].value = 20;
-        //   myChart.setOption(option, true);
-        // },2000);
-
-        if (option && typeof option === "object") {
-          myChart.setOption(option, true);
-        }
-      }
     }
   };
 </script>
 
 <style scoped lang="less">
-  button {
-    position: absolute;
-    bottom: 15%;
-    left: 20.5%;
+  div.first{
+    background-image: url("../../../static/img/sky.jpg");
+  }
+  .title{
+    text-align: center;
+    color: #9AC0CD;
+    font-size: 40px;
+  }
+  img{
+    position: relative;
+    overflow: hidden;
+  }
+  button{
+    position: relative;
+    margin-left: 45%;
     width: 120px;
     padding:6px;
     background-color: #63B8FF;
@@ -110,40 +104,65 @@
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px; /* future proofing */
-    -khtml-border-radius: 10px; /* for old Konqueror browsers */
+
     text-align: center;
     vertical-align: middle;
-    border: 1px solid transparent;
+
     font-weight: lighter;
     font-size:110%
   }
-  .text {
-    position: relative;
+  ul {
+    display:block;
+    list-style-type:none;
+    margin:25px;
+
+    overflow: hidden;
+  }
+  dt,dd{
+
     font-size: 25px;
-    height: 200px;
-    overflow-y: auto;//不用加窗口，这行代码可以使内容超过200px自动出现滚动条
-  }
+    color: #707070;
 
-  .item {
-    margin-bottom: 18px;
+    list-style: none;
+    position: relative;
+    padding: 0 0 0 2em;
+    -webkit-transition: .12s;
+    transition: .12s;
   }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
+  dl{
+    float:left; width:100%; height:100%; padding:20px; margin-left:20px;
   }
-  .clearfix:after {
-    clear: both
+  dt {  float: left; width: 30%;}
+  dd { float: left; width: 30%;}
+  .text{
+    margin-left: 20%;
+    margin-right: 20%;
+    font-size: 20px;
+    color: #838B8B;
   }
-
-  .box-card {
-    margin: 40px;
-    width: 480px;
-    height: 360px;
-  }
-  .clearfix{
+  li::before {
+    position: absolute;
+    content: '\2022';
+    color: #FFF;
+    top: 0;
+    left: 0;
     text-align: center;
-    font-size: 35px;
+    font-size: 2em;
+    opacity: .5;
+    line-height: .75;
+    -webkit-transition: .5s;
+    transition: .5s;
+  }
+  li:hover {
+    color: #7AC5CD	;
+  }
+  li:hover::before {
+    -webkit-transform: scale(2);
+    -ms-transform: scale(2);
+    transform: scale(2);
+    opacity: 1;
+    text-shadow: 0 0 4px;
+    -webkit-transition: .1s;
+    transition: .1s;
   }
 </style>

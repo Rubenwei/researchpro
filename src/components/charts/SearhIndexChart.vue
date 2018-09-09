@@ -49,6 +49,7 @@
         this.$axios.get('static/data.json')
           .then(
             (res) => {
+              console.log(res.data)
               let data = res.data;
               for (let i = 1; i < data.total; i++) {
                 let now = new Date(base += oneDay);

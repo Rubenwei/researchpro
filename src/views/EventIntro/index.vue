@@ -3,32 +3,35 @@
     <div class ="first">
       <el-row>
         <h1 class="title">
-          {{ ChiName + '(' + EngName + ')' }}
+          事件简介
         </h1>
       </el-row>
       <el-row>
-          <el-col :span="10" align="center">
-            <img src="../../../static/img/wechat.jpg" style="width: 200px; height: 200px">
+          <el-col :span="12">
+            <img :src="picurl" style="width: 400px; height: 350px">
           </el-col>
-          <el-col :span="14">
-            <dl>
-              <dt>中文名：</dt>
-              <dd>{{ChiName}}</dd>
-              <dt>英文名：</dt>
-              <dd>{{EngName}}</dd>
-              <dt>国家：</dt>
-              <dd>{{Country}}</dd>
-              <dt>类别：</dt>
-              <dd>{{Subject}}</dd>
-              <dt>时间：</dt>
-              <dd>{{Time}}</dd>
-              <dt>重大等级：</dt>
-              <dd>{{grade}}</dd>
-            </dl>
+          <el-col :span="12">
+              <dl class="active"><dt>中文名：</dt>
+                <dd>{{ChiName}}</dd></dl>
+              <dl class="active"><dt>英文名：</dt>
+                <dd>{{EngName}}</dd></dl>
+              <dl class="active"><dt>国家：</dt>
+                <dd>{{Country}}</dd></dl>
+              <dl class="active"> <dt>类别：</dt>
+                <dd>{{Subject}}</dd></dl>
+              <dl class="active"><dt>时间：</dt>
+                <dd>{{Time}}</dd></dl>
+              <dl class="active"><dt>重大等级：</dt>
+                <dd><el-rate
+                  v-model="grade"
+                  disabled
+                  show-score
+                  text-color="#ff9900"
+                  score-template="{value}">
+                </el-rate></dd></dl>
           </el-col>
       </el-row>
     </div>
-    <hr size="5px">
     <el-row class="text">
       <p v-for="info in Intro">
         {{info}}
@@ -53,7 +56,8 @@
         Subject: '类别学科',
         Time:'时间',
         Intro:['我是第一段文字','我是第二段文字','我是第三段文字','我是第四段文字'],
-        grade: 2
+        grade: 2,
+        picurl:'',
       }
     },
     mounted(){
@@ -73,7 +77,7 @@
           this.Time = res.time
           this.Intro = res.info
           this.grade = res.grade
-          console.log(res.cnname)
+          this.picurl = res.pic
         })
       },
     }
@@ -82,7 +86,9 @@
 
 <style scoped lang="less">
   div.first{
-    background-image: url("../../../static/img/sky.jpg");
+    background-image: url("../../../static/img/Moon.jpg");
+    background-position: center;
+    background-size: 100%;
   }
   .title{
     text-align: center;
@@ -92,6 +98,10 @@
   img{
     position: relative;
     overflow: hidden;
+    float: right;
+    margin-top: 20px;
+    margin-right: 150px ;
+    margin-bottom: 50px;
   }
   button{
     position: relative;
@@ -99,67 +109,52 @@
     width: 120px;
     padding:6px;
     background-color: #63B8FF;
-    border-color: #357ebd;
+    /*border-color: #357ebd;*/
     color: #fff;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px; /* future proofing */
-
     text-align: center;
     vertical-align: middle;
-
     font-weight: lighter;
-    font-size:110%
+    font-size:110%;
+    margin-bottom: 100px;
   }
-  ul {
-    display:block;
-    list-style-type:none;
-    margin:25px;
-
-    overflow: hidden;
-  }
-  dt,dd{
-
-    font-size: 25px;
-    color: #707070;
-
-    list-style: none;
-    position: relative;
-    padding: 0 0 0 2em;
-    -webkit-transition: .12s;
-    transition: .12s;
-  }
-  dl{
-    float:left; width:100%; height:100%; padding:20px; margin-left:20px;
-  }
-  dt {  float: left; width: 30%;}
-  dd { float: left; width: 30%;}
   .text{
     margin-left: 20%;
     margin-right: 20%;
     font-size: 20px;
+    text-indent: 40px;
+    line-height: 50px;
     color: #838B8B;
   }
-  li::before {
-    position: absolute;
+  dt{
+    float: left;
+    width: 25%;
+    list-style: none;
+    position: relative;
+    padding: 0 0 0 2em;
+    margin: 0 0 .5em 10px;
+    -webkit-transition: .12s;
+    transition: .12s;
+  }
+  dd{
+    width: 75%;
+  }
+  .active{
     content: '\2022';
-    color: #FFF;
-    top: 0;
-    left: 0;
-    text-align: center;
-    font-size: 2em;
+    color: #303133;
+    text-align: left;
+    font-size: 1.75em;
     opacity: .5;
-    line-height: .75;
+    line-height: 30px;
     -webkit-transition: .5s;
     transition: .5s;
   }
-  li:hover {
-    color: #7AC5CD	;
-  }
-  li:hover::before {
-    -webkit-transform: scale(2);
-    -ms-transform: scale(2);
-    transform: scale(2);
+  .active:hover{
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
     opacity: 1;
     text-shadow: 0 0 4px;
     -webkit-transition: .1s;

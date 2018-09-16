@@ -145,16 +145,16 @@
 
   #content{width: 100%;height: auto; margin: 0 auto;}
   #content div{width: 100%; height: 868px; margin: 0 auto;}
-  #content #item1{background-image: url('../../../static/img/sky.jpg');background-position: -20% 10%;
-    background-size: contain;}
-  #content #item2{background-image: url('../../../static/img/sky.jpg');background-position: -20% 10%;
-    background-size: contain;}
-  #content #item3{background-image: url('../../../static/img/sky.jpg');background-position: -20% 10%;
-    background-size: contain;}
-  #content #item4{background-image: url('../../../static/img/sky.jpg');background-position: -20% 10%;
-    background-size: contain;}
-  #content #item5{background-image: url('../../../static/img/sky.jpg');background-position: -20% 10%;
-    background-size: contain;}
+  #content #item1{background-image: url('../../../static/img/1.jpg');
+    background-size: 110%;}
+  #content #item2{background-image: url('../../../static/img/2.jpg');
+    background-size: 110%;}
+  #content #item3{background-image: url('../../../static/img/3.jpg');
+    background-size: 110%;}
+  #content #item4{background-image: url('../../../static/img/4.jpg');
+    background-size: 110%;}
+  #content #item5{background-image: url('../../../static/img/5.jpg');
+    background-size: 110%;}
   #content  h1{font-size: 36px; color: #fff;}
   #menu{width: 88px;height: auto; position: fixed;top: 50%;margin-top: -135px;}
   #menu ul{display: block;list-style: none}

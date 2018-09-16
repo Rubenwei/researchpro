@@ -47,15 +47,15 @@
         var url = 'api/searchindexdata?message=' + this.query
         console.log('url:' + url)
 
-        this.$axios.get('static/data.json')
+        this.$axios.get(url)
           .then(
             (res) => {
               let data = res.data;
-              for (let i = 1; i < data.total; i++) {
-                let now = new Date(base += oneDay);
-                date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-              }
-              // date = data.time
+              // for (let i = 1; i < data.total; i++) {
+              //   let now = new Date(base += oneDay);
+              //   date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
+              // }
+              date = data.time
               myChart.setOption({
                 tooltip: {
                   trigger: 'axis',

@@ -37,7 +37,7 @@
 
     <div id="content">
       <div class="item" v-for="(content, index) in contents" :id="getId(index)">
-        <h1>{{content}}</h1>
+        <p style="color:white;font-size:20px; text-align: left;width: 300px; position: relative; top: 30%;left: 13%;text-indent: 40px;line-height: 40px">{{content}}</p>
       </div>
     </div>
 
@@ -49,8 +49,8 @@
     name: "signin",
     data(){
       return {
-        items: ['One', 'Two', 'Three', 'Four', 'Five'],
-        contents:['1F', '2F', '3F', '4F', '5F'],
+        items: ['One', 'Two', 'Three', 'Four'],
+        contents:['科技事件影响力评估平台是一个客观评估科技事件在一段时间内在网络中的影响力的系统平台；', '平台通过获取百度指数、百度搜索总数、知乎搜索总数的大量数据，对数据进行清洗，采用目前主流的机器学习算法，进行评估；', '平台可为科技事件的选取和中小学进行科普教育提供一个参考角度；', '如果您在使用过程中发现什么问题，请联系开发人员：GSWLee，QQ：995030368'],
         currentIndex:0
       }
     },

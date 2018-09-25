@@ -1,5 +1,3 @@
-<!-- 左侧导航组件 -->
-<!-- 使用说明：<side-bar></side-bar> -->
 <template>
     <div id="navbar-wrap" >
         <el-menu style="margin: auto; position: relative" background-color="#ecf5ff" text-color="#ddd" :default-active="$route.path" :unique-opened="isUnique" :router="isRouter" mode="horizontal" :collapse="toggSiderBar">

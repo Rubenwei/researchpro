@@ -49,7 +49,7 @@
         localStorage.query = this.query
 
         Bus.$emit('query', localStorage.query)
-        this.$router.push({path:'home'});
+        this.$router.push({path:'eventintro'});
         this.placeholder = this.query
         // localStorage.query = this.query
         console.log('query:' + localStorage.query)

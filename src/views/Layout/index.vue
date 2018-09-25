@@ -15,7 +15,6 @@
 <script>
 import TopBar from 'comp/TopBar'
 import NavBar from 'comp/NavBar'
-import 'filters/handleNum.js'
 export default {
   name: 'layout',
   computed: {

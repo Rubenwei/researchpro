@@ -70,29 +70,29 @@
     left: 10%;
   }
   .image1{
-    background-image: url('../../../static/img/sky.jpg');/*按理说这里放上正确的图片地址就可以显示出图上加字的效果了*/
+    background-image: url('../../../static/img/1.jpg');/*按理说这里放上正确的图片地址就可以显示出图上加字的效果了*/
     width:80px;
     height:80px;
     border-radius:20px;/*放上图片后改border-radius的值可以改变圆角程度*/
   }
   .image2{
-    background-image: url('../../../static/img/sky.jpg');
+    background-image: url('../../../static/img/1.jpg');
     width:80px;
     height:80px;
     border-radius:20px;
   }
   .image3{
-    background-image: url('../../../static/img/sky.jpg');
+    background-image: url('../../../static/img/1.jpg');
     width:80px;
     height:80px;
     border-radius:200px;
   }.image4{
-       background-image: url('../../../static/img/sky.jpg');
+       background-image: url('../../../static/img/1.jpg');
      width:80px;
      height:80px;
      border-radius:200px;
    }.image5{
-      background-image: url('../../../static/img/sky.jpg');
+      background-image: url('../../../static/img/1.jpg');
       width:80px;
       height:80px;
       border-radius:200px;

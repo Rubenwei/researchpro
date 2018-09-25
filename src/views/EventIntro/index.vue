@@ -7,29 +7,29 @@
         </h1>
       </el-row>
       <el-row>
-          <el-col :span="12">
-            <img :src="picurl" style="width: 400px; height: 350px">
-          </el-col>
-          <el-col :span="12">
-              <dl class="active"><dt>中文名：</dt>
-                <dd>{{ChiName}}</dd></dl>
-              <dl class="active"><dt>英文名：</dt>
-                <dd>{{EngName}}</dd></dl>
-              <dl class="active"><dt>国家：</dt>
-                <dd>{{Country}}</dd></dl>
-              <dl class="active"> <dt>类别：</dt>
-                <dd>{{Subject}}</dd></dl>
-              <dl class="active"><dt>时间：</dt>
-                <dd>{{Time}}</dd></dl>
-              <dl class="active"><dt>重大等级：</dt>
-                <dd><el-rate
-                  v-model="grade"
-                  disabled
-                  show-score
-                  text-color="#ff9900"
-                  score-template="{value}">
-                </el-rate></dd></dl>
-          </el-col>
+        <el-col :span="12" align="right">
+          <div id="container" :style="{width: '400px',height:'400px'}"></div>
+        </el-col>
+        <el-col :span="12">
+          <dl class="active"><dt>中文名：</dt>
+            <dd>{{ChiName}}</dd></dl>
+          <dl class="active"><dt>英文名：</dt>
+            <dd>{{EngName}}</dd></dl>
+          <dl class="active"><dt>国家：</dt>
+            <dd>{{Country}}</dd></dl>
+          <dl class="active"> <dt>类别：</dt>
+            <dd>{{Subject}}</dd></dl>
+          <dl class="active"><dt>时间：</dt>
+            <dd>{{Time}}</dd></dl>
+          <dl class="active"><dt>影响力等级：</dt>
+            <dd><el-rate
+              v-model="grade"
+              disabled
+              show-score
+              text-color="#ff9900"
+              score-template="{value}">
+            </el-rate></dd></dl>
+        </el-col>
       </el-row>
     </div>
     <el-row class="text">
@@ -40,10 +40,12 @@
     <el-row>
       <button>view more</button>
     </el-row>
+    <go-top></go-top>
   </div>
 </template>
 <script>
   import {getItem} from '../../api/recommend'
+  import gotop from '../../components/GoTop'
   import Bus from '../../bus'
   export default {
     name: "eventintro",
@@ -60,13 +62,60 @@
         picurl:'',
       }
     },
+    components:{
+        'go-top':gotop
+    },
     mounted(){
       Bus.$on('query', (res)=>{
         this._getItem()
       })
       this._getItem()
+      this.drawchart()
     },
     methods:{
+      drawchart(){
+        let myChart = this.$echarts.init(document.getElementById("container"));
+        var app = {};
+        let option = {
+          xAxis: {
+            type: 'category',
+            data: ['等级一', '等级二', '等级三', '等级四', '等级五'],
+            axisLabel: {
+              textStyle: {
+                color: '#878787',//坐标值的具体的颜色
+              }
+            },
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              textStyle: {
+                color: '#878787',//坐标值得具体的颜色
+              }
+            }
+          },
+          series: [{
+            data: [1, 2, 3, 4, 5],
+            type: 'bar',
+            itemStyle: {
+              normal: {
+                color: '#00BFFF',//设置柱子颜色
+                label: {
+                  show: true,//柱子上显示值
+                  position: 'top',//值在柱子上方显示
+                  textStyle: {
+                    color: '#FD6B71'//值得颜色
+                  }
+                }
+              }
+            },
+          }]
+        };
+        ;
+        if (option && typeof option === "object") {
+          myChart.setOption(option, true);
+        }
+      },
       _getItem(){
         getItem().then((res)=>{
           console.log(res)
@@ -86,7 +135,7 @@
 
 <style scoped lang="less">
   div.first{
-    background-image: url("../../../static/img/Moon.jpg");
+    background-image: url("../../../static/img/6.jpg");
     background-position: center;
     background-size: 100%;
   }
@@ -143,7 +192,7 @@
   }
   .active{
     content: '\2022';
-    color: #303133;
+    color: #DCDCDC;
     text-align: left;
     font-size: 1.75em;
     opacity: .5;

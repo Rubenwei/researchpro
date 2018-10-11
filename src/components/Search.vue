@@ -32,7 +32,6 @@
     methods: {
       querySearchAsync(queryString, callback) {
        let url = 'api/getnamelist?message=' + this.query
-
         //从后台获取到对象数组
         this.$axios.get(url)
           .then(
@@ -47,28 +46,12 @@
       },
       Search(){
         localStorage.query = this.query
-
         Bus.$emit('query', localStorage.query)
-        this.$router.push({path:'eventintro'});
+        this.$router.push({path:'index'});
         this.placeholder = this.query
         // localStorage.query = this.query
         console.log('query:' + localStorage.query)
       },
-      get() {
-        let self = this
-        // console.log(res);
-        jsonp("https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su", {
-            wd: this.query
-          },
-          {
-            param: 'cb'
-          }).then(function (res) {
-          self.myData = res.s
-        }, function () {
-
-        });
-
-      }
     }
   }
 </script>

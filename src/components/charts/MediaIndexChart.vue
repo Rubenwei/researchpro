@@ -1,5 +1,6 @@
 <template>
-  <div :style="{width: '100%', height: '500px'}">
+  <div :style="{width: '100%', height: '500px'}" align="center">
+    {{query}}
     <div id="MediaChart" :style="{width: '100%', height:'90%'}">
     </div>
   </div>
@@ -35,6 +36,7 @@
         console.log('进入MediaIndexChart的drawLine函数')
         console.log('query:' + localStorage.query)
         this.query = localStorage.query
+
         if(document.getElementById('MediaChart') == null){
           return 0
         }
@@ -51,10 +53,7 @@
           .then(
             (res) => {
               let data = res.data;
-              // for (let i = 1; i < data.total; i++) {
-              //   let now = new Date(base += oneDay);
-              //   date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-              // }
+
               date = data.time
               myChart.setOption({
                 tooltip: {
@@ -62,10 +61,6 @@
                   position: function (pt) {
                     return [pt[0], '10%'];
                   }
-                },
-                title: {
-                  left: 'center',
-                  text: this.query,
                 },
                 legend: {
                   data:['媒体指数']

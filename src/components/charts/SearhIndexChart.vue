@@ -1,5 +1,6 @@
 <template>
-  <div :style="{width: '100%', height: '500px'}">
+  <div :style="{width: '100%', height: '500px'}"align="center">
+    {{query}}
     <div id="SearchChart" :style="{width: '100%', height:'90%'}"></div>
   </div>
 
@@ -63,10 +64,7 @@
                     return [pt[0], '10%'];
                   }
                 },
-                title: {
-                  left: 'center',
-                  text: this.query,
-                },
+
                 legend: {
                   data:['搜索指数','pc趋势','移动趋势']
                 },

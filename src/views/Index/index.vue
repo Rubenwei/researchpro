@@ -3,13 +3,13 @@
     <el-card>
       <el-row :gutter="20">
         <el-col :span="8">
-          最高：
+          最高：160
         </el-col>
         <el-col :span="8">
-          平均：
+          平均：52
         </el-col>
         <el-col :span="8">
-          比率：
+          比率：0.67
         </el-col>
       </el-row>
     </el-card>

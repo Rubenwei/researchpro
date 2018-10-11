@@ -21,6 +21,9 @@ Vue.prototype.$echarts = echarts;
 
 // 这里只引入了部分饿了么组件
 import {
+    TableColumn,
+    Table,
+    Progress,
     Autocomplete,
     Dropdown,
     DropdownMenu,
@@ -61,7 +64,9 @@ import {
     MessageBox,
     Message,
 } from 'element-ui'
-
+Vue.use(TableColumn)
+Vue.use(Table)
+Vue.use(Progress)
 Vue.use(Autocomplete)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)

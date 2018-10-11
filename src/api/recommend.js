@@ -22,4 +22,28 @@ export function getResource() {
   })
 }
 
+//评估结果信息
+export function getAssess() {
+  const url = 'api/assessinfomation?message=' + localStorage.query
+  console.log('AssessInformation:' + url);
+  return axios.get(url).then((res)=>{
+    return res.data
+  })
+}
+//代码窗口信息
+export function getCodeInformation() {
+  const url = 'api/codeinformation?message=' + localStorage.query
+  console.log('CodeInformation:' + url);
+  return axios.get(url).then((res)=>{
+    return res.data
+  })
+}
+//事件列表信息
+export function getEventList() {
+  const url = 'api/eventlist?message=' + localStorage.query
+  console.log('EventList:' + url);
+  return axios.get(url).then((res)=>{
+    return res.data
+  })
+}
 

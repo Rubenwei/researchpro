@@ -1,15 +1,15 @@
 <template>
-  <div  v-title="'天气预报'">
+  <div>
     <el-card>
       <el-row :gutter="20">
         <el-col :span="8">
-          最高：160
+          搜索平均：{{avg}}
         </el-col>
         <el-col :span="8">
-          平均：52
+          PC平均：{{avgpc}}
         </el-col>
         <el-col :span="8">
-          比率：0.67
+          移动平均：{{avgmobile}}
         </el-col>
       </el-row>
     </el-card>
@@ -43,7 +43,10 @@
     data(){
       return {
         query:localStorage.query,
-        activeName: 'second'
+        activeName: 'second',
+        avg: this.$store.state.common.avg,
+        avgpc:this.$store.state.common.avgpc,
+        avgmobile: this.$store.state.common.avgmobile
       }
     },
     mounted(){

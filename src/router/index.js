@@ -22,12 +22,6 @@ const EventAbout = resolve => require(['@/views/EventAbout'], resolve)
 // 媒体资源
 const Resource = resolve => require(['@/views/Resource'], resolve)
 
-
-//搜索指数
-import SearchChart from '../components/charts/SearhIndexChart'
-//媒体指数
-import MediaChart from '../components/charts/MediaIndexChart'
-
 // 404
 const Notfound = resolve => require(['@/views/Notfound'], resolve)
 
@@ -62,16 +56,7 @@ const router = new Router({
                       path: 'index',
                       meta: { requireAuth: true },
                       component: Index,
-                      // children: [{
-                      //   path: 'searchchart',
-                      //   meta: { requireAuth: true },
-                      //   component: SearchChart
-                      // },
-                      // {
-                      //   path: 'mediachart',
-                      //   meta: { requireAuth: true },
-                      //   component: MediaChart
-                      // }]
+
                   },
                   {
                     path: 'eventintro',

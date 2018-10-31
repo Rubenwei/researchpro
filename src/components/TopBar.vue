@@ -1,5 +1,4 @@
-<!-- 左侧导航组件 -->
-<!-- 使用说明：<side-bar></side-bar> -->
+
 <template>
   <div id="topbar-wrap" >
     <el-row type="flex" justify="space-between">

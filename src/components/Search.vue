@@ -18,7 +18,6 @@
   </div>
 </template>
 <script>
-  import jsonp from '../common/js/jsonp'
   import Bus from '../bus'
 
   export default {
@@ -31,7 +30,7 @@
     },
     methods: {
       querySearchAsync(queryString, callback) {
-       let url = 'api/getnamelist?message=' + this.query
+       let url = 'api/getnamelist?message=' + this.query;
         //从后台获取到对象数组
         this.$axios.get(url)
           .then(
@@ -45,12 +44,30 @@
         //do something
       },
       Search(){
-        localStorage.query = this.query
-        Bus.$emit('query', localStorage.query)
-        this.$router.push({path:'index'});
-        this.placeholder = this.query
-        // localStorage.query = this.query
-        console.log('query:' + localStorage.query)
+        let list = this.$store.state.common.eventlist;
+        var i;
+        for(i = 0; i < list.length; i++){
+          if(this.query === list[i]){
+            break;
+          }
+        }
+        if(i === list.length){
+          this.$router.push({path:'*'});
+        }
+        else{
+          localStorage.query = this.query;
+          var url = 'api/avgdata?message=' + localStorage.query
+          this.$axios.get(url).then((res)=>{
+              this.$store.state.common.avg = res.data.avg;
+              this.$store.state.common.avgpc = res.data.avgpc;
+              this.$store.state.common.avgmobile = res.data.avgmobile;
+          });
+          Bus.$emit('query', localStorage.query);
+          this.$router.push({path:'eventintro'});
+          this.placeholder = this.query;
+          // localStorage.query = this.query
+          console.log('query:' + localStorage.query)
+        }
       },
     }
   }

@@ -18,24 +18,24 @@
     },
     mounted(){
       Bus.$on('query', (res)=>{
-        console.log('mounted:' + localStorage.query)
+        console.log('mounted:' + localStorage.query);
         this.drawLine()
-      })
+      });
       this.drawLine()
     },
     watch:{
       '$route.path': function (newVal, oldVal) {
         if(newVal === '/index'){
-          console.log(newVal)
+          console.log(newVal);
           this.drawLine()
         }
       }
     },
     methods: {
       drawLine(){
-        console.log('进入MediaIndexChart的drawLine函数')
-        console.log('query:' + localStorage.query)
-        this.query = localStorage.query
+        console.log('进入MediaIndexChart的drawLine函数');
+        console.log('query:' + localStorage.query);
+        this.query = localStorage.query;
 
         if(document.getElementById('MediaChart') == null){
           return 0
@@ -46,15 +46,15 @@
         let oneDay = 24 * 3600 * 1000;
         let date = [];
 
-        var url = 'api/searchindexdata?message=' + this.query
-        console.log('url:' + url)
+        var url = '../api/mediaindexdata?message=' + this.query;
+        console.log('url:' + url);
 
         this.$axios.get(url)
           .then(
             (res) => {
+              console.log(res.data)
               let data = res.data;
-
-              date = data.time
+              date = data.time;
               myChart.setOption({
                 tooltip: {
                   trigger: 'axis',

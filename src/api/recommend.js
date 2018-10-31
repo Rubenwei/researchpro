@@ -1,6 +1,3 @@
-import jsonp from '../common/js/jsonp'
-import {commonParams, options} from "./config";
-
 import axios from 'axios'
 
 //科技事件 名称 国家 发明人 简介 等级
@@ -32,16 +29,8 @@ export function getAssess() {
 }
 //代码窗口信息
 export function getCodeInformation() {
-  const url = 'api/codeinformation?message=' + localStorage.query
+  const  url = 'api/codeinformation?message=' + localStorage.query
   console.log('CodeInformation:' + url);
-  return axios.get(url).then((res)=>{
-    return res.data
-  })
-}
-//事件列表信息
-export function getEventList() {
-  const url = 'api/eventlist?message=' + localStorage.query
-  console.log('EventList:' + url);
   return axios.get(url).then((res)=>{
     return res.data
   })

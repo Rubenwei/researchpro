@@ -2,29 +2,29 @@
   <div>
     <el-row :gutter="20">
       <!--代码窗-->
-      <el-col :span="14" id="one" class="grid-content bg-purple">
-        <div>
+      <el-col :span="13" id="one" class="grid-content bg-purple">
+        <div class="code">
           <ul id="cmd">
           </ul>
         </div>
       </el-col>
       <!--结果窗-->
-      <el-col :span="10" id="two" class="grid-content bg-purple-dark">
+      <el-col :span="11" id="two" class="grid-content bg-purple-dark">
         事件名称：{{assdata.chiname}}
         <br>
-        <br>
+
         Event Name:{{assdata.engname}}
         <br>
         <br>
         影响指数：{{assdata.impact}}
         <br>
-        <br>
+
         Impact Index:{{assdata.impact}}
         <br>
         <br>
         影响等级：{{assdata.rander}}
         <br>
-        <br>
+
         Information Level:{{assdata.engrander}}
         <br>
         <br>
@@ -36,20 +36,33 @@
 
     <el-row :gutter="20">
       <!--操作窗-->
-      <el-col :span="14" id="three" class="grid-content bg-purple">
-        <label for="myProgress">进度条</label>
-        <progress id="myProgress" value="0" max="100"></progress>
-        <span id="mySpan"></span>
-        <el-button type="primary" round @click="Progress1">评估</el-button>
-        <el-select v-model="kind" @change="currentSel" clearable placeholder="请选择">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
+      <el-col :span="13" id="three" class="grid-content bg-purple1">
+        <div id="xyl">
+          <label for="myProgress">进度条</label>
+          <progress id="myProgress" value="0" max="100"></progress>
+          <span id="mySpan"></span>
 
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+          <!--按钮-->
+          <el-button :disabled="unable"
+                     type="primary"
+                     round
+                     @click="Progress1"
+          >评估
+          </el-button>
+          <br>
+
+          <el-select v-model="kind" @change="currentSel" placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+          <el-checkbox v-model="checked1" disabled>百度</el-checkbox>
+          <el-checkbox v-model="checked2" disabled>知乎</el-checkbox>
+          <el-checkbox v-model="checked3" disabled>其他</el-checkbox>
+        </div>
         <!--列表-->
         <div id="list">
           <el-table
@@ -59,8 +72,9 @@
             @current-change="handleCurrentChange"
             style="width: 100%">
             <el-table-column
+
               type="index"
-              width="50">
+              width="60">
             </el-table-column>
             <el-table-column
               property="name"
@@ -70,7 +84,7 @@
             <el-table-column
               property="engname"
               label="英文名称"
-              width="120">
+              width="150">
             </el-table-column>
             <el-table-column
               property="time"
@@ -81,14 +95,14 @@
       </el-col>
 
       <!--简介窗-->
-      <el-col :span="10" id="four" class="grid-content bg-purple-dark">
+      <el-col :span="11" id="four" class="grid-content bg-purple-dark">
         {{assdata.brief}}
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-  import {getCodeInformation, getAssess, getEventList} from "../../api/recommend";
+  import {getCodeInformation, getAssess} from "../../api/recommend";
   import Bus from '../../bus'
 
   export default {
@@ -96,29 +110,34 @@
       return {
         query: '',
         progress: 0,
+        unable:true,
         kind:'',
+        checked1:true,
+        checked2:true,
+        checked3:true,
         options:[{
           value: '化工',
           label: '化工'
         }, {
-          value: '农业',
-          label: '农业'
+          value: '信息',
+          label: '信息'
         }, {
-          value: '航天',
-          label: '航天'
+          value: '机械',
+          label: '机械'
         }],
-        codeinfo: ['11111111', '222222', '33333333333', '444444444444444', '55555555', '66666666666', '7', '88', '9', '0'],
+        codeinfo: ['11111111', '222222', '33333333333', '444444444444444', '55555555', '66666666666', '7', '88', '9', '0','11111111', '222222', '33333333333', '444444444444444', '55555555', '66666666666', '7', '88', '9', '0'],
         assdata: {
-          chiname: 'Linux',
-          engname: 'Linux',
-          impact: 6.36186,
-          rander: '强',
-          engrander: 'Strong',
-          info: '(此次计算所有数据均来自互联网)',
-          enginfo: '(The data required for this calculation comes from the internet.)',
-          brief: 'Linux是一套免费使用和自由传播的类Unix操作系统，是一个基于POSIX和UNIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的UNIX工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。',
+          chiname: '',
+          engname: '',
+          impact: '',
+          rander: '',
+          engrander: '',
+          info: '',
+          enginfo: '',
+          brief: '',
         },
-        eventlist: [{
+        eventlist: [
+          {
           name: 'Linux',
           engname: 'Linux',
           time: '1936'
@@ -134,15 +153,22 @@
           name: '互联网',
           engname: 'Internet',
           time: '1969'
-        }],
+        }
+        ],
         currentRow: null
       }
     },
+    mounted(){
+      //this._getCodeInformation();
+    },
     methods: {
+      selectable(index){
+        return index !== 1
+      },
       //评估结果信息
       _getAssess() {
         getAssess().then((res) => {
-          console.log(res);
+          console.log(res.data);
           this.assdata.chiname = res.chiname;
           this.assdata.engname = res.engname;
           this.assdata.impact = res.impact;
@@ -154,55 +180,56 @@
       //代码窗代码信息
       _getCodeInformation() {
         getCodeInformation().then(res => {
-          console.log(res);
-          this.codeinfo = res.codeinfo;
-        })
-      },
-      //事件列表
-      _getEventList() {
-        getEventList().then(res => {
-          console.log(res);
-          this.eventlist = res.eventlist;
+          console.log('coooooo'+res);
+          this.codeinfo = res;
         })
       },
       currentSel(selVal){
-        console.log(selVal)
+        console.log("选中类型："+selVal);
+        // var url = 'api/eventlist?message=' + selVal;
+        // console.log('EventList:' + url);
+        // this.$axios.get(url).then((res)=>{
+        //   console.log(res.data);
+        //   this.eventlist = res.data
+        // });
+
+        this.unable = false;
       },
       Progress1() {
-        //this._getAssess();
-        //this._getCodeInformation();
-
+        //获取代码行数据
+        // this._getCodeInformation();
+        this.unable = true;
         //获取进度条
         var myProgress = document.getElementById("myProgress");
         //获取span元素用于显示进度数值
         var mySpan = document.getElementById("mySpan");
+        var scro = document.getElementById("one");
         //获取代码行的div
         var cmd = document.getElementById("cmd")
         //初始化 进度条的value为0，进度数值为空，代码信息为空
         myProgress.value = 0;
         mySpan.innerText = "";
         cmd.innerText = "";
-
+        var str = this.codeinfo
+        console.log('str'+str);
         var i = 0;
         //用一个变量str存放代码信息，直接使用this,codeinfo有问题
-        var str = this.codeinfo;
-        //value记录进度值
         var value = myProgress.value;
-        //打印codeinfo信息
-        console.log(str)
         //进度条加载时间间隔
-        var time = (this.codeinfo.length * 300) / 10;
+        var time = (10 * 300) / 10;
         //代码信息模拟
         var ID2 = setInterval(function () {
-          if (i === str.length) {
+          if (i === 10) {
             clearInterval(ID2);
           } else {
             var newnode = document.createElement("li");
-            newnode.innerText = "nihao " + str[i]
+            newnode.innerText =str[i];
             cmd.appendChild(newnode);
+            scro.scrollTop = scro.scrollHeight;
             i++;
           }
         }, 300);
+        let t = this;
         //进度条模拟
         var ID1 = setInterval(function () {
           value = myProgress.value;
@@ -213,14 +240,27 @@
           }
           if (value === 100) {
             clearInterval(ID1);
-            localStorage.query = this.query
-            Bus.$emit('query', localStorage.query)
+            t._getAssess();
+            t.unable = false;
           }
         }, time);
       },
       handleCurrentChange(val) {
-        console.log(val);
-        this.query = val.name;
+        this.unable = false;
+        console.log("选中事件："+val.name);
+        localStorage.query = val.name;
+        Bus.$emit('query', localStorage.query)
+        // var url = 'api/assessinfomation?message=' + localStorage.query;
+        // console.log('AssessInformation:' + url);
+        // this.$axios.get(url).then((res) => {
+        //   console.log(res.data);
+        //   this.assdata.chiname = res.data.chiname;
+        //   this.assdata.engname = res.data.engname;
+        //   this.assdata.impact = res.data.impact;
+        //   this.assdata.rander = res.data.rander;
+        //   this.assdata.engrander = res.data.engrander;
+        //   this.assdata.brief = res.data.brief;
+        // });
       }
     }
   }
@@ -229,40 +269,53 @@
   #one {
     height: 300px;
     overflow: scroll;
+    font-size:20px;
   }
-
   #two {
     height: 300px;
+    font-size:17px;
   }
   #list{
-    height: 300px;
+    text-align:left;
+    height: 260px;
     overflow: scroll;
+  }
+  #xyl{
+    text-align: center;
   }
   #four {
     height: 300px;
+    font-size: 20px;
+    text-indent: 40px;
+    line-height:35px;
   }
-
   .el-row {
     margin-bottom: 20px;
     &:last-child {
       margin-bottom: 0;
     }
   }
-
   .el-col {
     border-radius: 4px;
   }
 
   .bg-purple-dark {
-    background: #99a9bf;
+    /*background: #99a9bf;*/
+    /*background: #d3dce6;*/
+    background: #303030;
+    color:#D3D3D3;
   }
 
   .bg-purple {
+    /*background: #d3dce6;*/
+    color: #D3D3D3;
+    background: #1E1E1E;
+  }
+  .bg-purple1 {
     background: #d3dce6;
   }
-
   .bg-purple-light {
-    background: #e5e9f2;
+    background: #D3D3D3;
   }
 
   .grid-content {

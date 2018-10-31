@@ -1,5 +1,5 @@
 <template>
-  <div v-title="'Introduction'">
+  <div>
     <div class ="first">
       <el-row>
         <h1 class="title">
@@ -36,9 +36,6 @@
       <p v-for="info in Intro">
         {{info}}
       </p>
-    </el-row>
-    <el-row>
-      <button>view more</button>
     </el-row>
     <go-top></go-top>
   </div>

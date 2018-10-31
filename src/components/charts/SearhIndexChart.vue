@@ -1,5 +1,5 @@
 <template>
-  <div :style="{width: '100%', height: '500px'}"align="center">
+  <div :style="{width: '100%', height: '500px'}" align="center">
     {{query}}
     <div id="SearchChart" :style="{width: '100%', height:'90%'}"></div>
   </div>
@@ -52,10 +52,8 @@
             (res) => {
               console.log(res.data)
               let data = res.data;
-              // for (let i = 1; i < data.total; i++) {
-              //   let now = new Date(base += oneDay);
-              //   date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-              // }
+
+
               date = data.time
               myChart.setOption({
                 tooltip: {

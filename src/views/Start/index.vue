@@ -1,7 +1,7 @@
 <template>
   <div class="bg">
-    <div class="login-wrap animated flipInY" v-title="'Auto Vue'">
-      <h3>Auto Vue</h3>
+    <div class="login-wrap animated flipInY">
+      <h3>知了搜索</h3>
       <Search></Search>
     </div>
     <!-- 粒子漂浮物 -->
@@ -63,6 +63,12 @@
     mounted() {
       // 组件一旦渲染到DOM中，就添加滚动事件监听，每次滚动鼠标滚轮，都会使回调函数执行
       window.addEventListener('scroll', this.handleScroll);
+      console.log("请求科技事件名称列表");
+      let url = 'api/getsearchlist';
+      this.$axios.get(url).then((res)=>{
+          console.log(res.data);
+          this.$store.state.common.eventlist = res.data;
+      })
     },
     methods: {
       handleScroll(){

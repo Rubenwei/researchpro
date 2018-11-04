@@ -123,7 +123,7 @@
                         }])
                       }
                     },
-                    data: data.mobileindex
+                    data: data.mediaindex
                   }
                 ]
               })

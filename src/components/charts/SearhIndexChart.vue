@@ -35,10 +35,12 @@
       drawLine(){
         console.log('进入echart组件的drawLine函数')
         console.log('query:' + localStorage.query)
-        this.query = localStorage.query
+        this.query = localStorage.query;
+
         if(document.getElementById('MediaChart') ==null){
           return 0
         }
+
         let myChart = this.$echarts.init(document.getElementById('SearchChart'));
         let base = +new Date(2011, 0, 0);
         let oneDay = 24 * 3600 * 1000;

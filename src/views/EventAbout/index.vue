@@ -2,68 +2,51 @@
   <div>
     <el-row :gutter="20">
       <!--代码窗-->
-      <el-col :span="13" id="one" class="grid-content bg-purple">
+      <el-col :span="14" id="one" class="grid-content bg-purple">
         <div class="code">
           <ul id="cmd">
           </ul>
         </div>
       </el-col>
       <!--结果窗-->
-      <el-col :span="11" id="two" class="grid-content bg-purple-dark">
-        事件名称：{{assdata.chiname}}
-        <br>
+      <el-col :span="10" id="two" class="grid-content bg-purple-dark">
+        <el-card class="box-card">
+          <div class="text item">
+            事件名称：{{assdata.chiname}}
+            <br>
 
-        Event Name:{{assdata.engname}}
-        <br>
-        <br>
-        影响指数：{{assdata.impact}}
-        <br>
+            Event Name:{{assdata.engname}}
+            <br>
+            <br>
+            影响指数：{{assdata.impact}}
+            <br>
 
-        Impact Index:{{assdata.impact}}
-        <br>
-        <br>
-        影响等级：{{assdata.rander}}
-        <br>
+            Impact Index:{{assdata.impact}}
+            <br>
+            <br>
+            影响等级：{{assdata.rander}}
+            <br>
 
-        Information Level:{{assdata.engrander}}
-        <br>
-        <br>
-        {{assdata.info}}
-        <br>
-        {{assdata.enginfo}}
+            Information Level:{{assdata.engrander}}
+            <br>
+            <br>
+            {{assdata.info}}
+            <br>
+            {{assdata.enginfo}}
+          </div>
+        </el-card>
+
       </el-col>
+    </el-row>
+    <el-row>
+      <label for="myProgress">进度条</label>
+      <progress style="width: 52%" id="myProgress" value="0" max="100"></progress>
+      <span id="mySpan"></span>
     </el-row>
 
     <el-row :gutter="20">
       <!--操作窗-->
-      <el-col :span="13" id="three" class="grid-content bg-purple1">
-        <div id="xyl">
-          <label for="myProgress">进度条</label>
-          <progress id="myProgress" value="0" max="100"></progress>
-          <span id="mySpan"></span>
-
-          <!--按钮-->
-          <el-button :disabled="unable"
-                     type="primary"
-                     round
-                     @click="Progress1"
-          >评估
-          </el-button>
-          <br>
-
-          <el-select v-model="kind" @change="currentSel" placeholder="请选择">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-          <el-checkbox v-model="checked1" disabled>百度</el-checkbox>
-          <el-checkbox v-model="checked2" disabled>知乎</el-checkbox>
-          <el-checkbox v-model="checked3" disabled>其他</el-checkbox>
-        </div>
-        <!--列表-->
+      <el-col :span="9" id="three" class="grid-content bg-purple1">
         <div id="list">
           <el-table
             ref="singleTable"
@@ -94,9 +77,45 @@
         </div>
       </el-col>
 
+      <el-col :span="5" id="five" class="grid-content bg-purple1">
+        <div id="xyl">
+          领域：
+          <el-select v-model="kind" @change="currentSel" placeholder="请选择" style="width:80%">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+
+          <br><br><br>
+          数据来源：
+          <el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
+            <el-checkbox label="百度"></el-checkbox>
+            <el-checkbox label="知网"></el-checkbox>
+            <el-checkbox label="谷歌"></el-checkbox>
+          </el-checkbox-group>
+
+          <br><br><br><br><br>
+          <!--按钮-->
+          <el-button :disabled="unable"
+                     type="primary"
+                     round
+                     @click="Progress1"
+          >评估
+          </el-button>
+          <br>
+        </div>
+      </el-col>
+
       <!--简介窗-->
-      <el-col :span="11" id="four" class="grid-content bg-purple-dark">
-        {{assdata.brief}}
+      <el-col :span="10" id="four" class="grid-content bg-purple-dark">
+        <div class="text item">
+          <el-card class="box-card2">
+            {{assdata.brief}}
+          </el-card>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -112,9 +131,8 @@
         progress: 0,
         unable:true,
         kind:'',
-        checked1:true,
-        checked2:true,
-        checked3:true,
+        checkList:[],
+        checkL:'',
         options:[{
           value: '化工',
           label: '化工'
@@ -134,26 +152,26 @@
           engrander: '',
           info: '',
           enginfo: '',
-          brief: '',
+          brief: '夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞',
         },
         eventlist: [
           {
-          name: 'Linux',
-          engname: 'Linux',
-          time: '1936'
-        }, {
-          name: '云计算',
-          engname: 'cloud computing',
-          time: '2006'
-        }, {
-          name: '大数据',
-          engname: 'big data',
-          time: '2008年8月中旬'
-        }, {
-          name: '互联网',
-          engname: 'Internet',
-          time: '1969'
-        }
+            name: 'Linux',
+            engname: 'Linux',
+            time: '1936'
+          }, {
+            name: '云计算',
+            engname: 'cloud computing',
+            time: '2006'
+          }, {
+            name: '大数据',
+            engname: 'big data',
+            time: '2008年8月中旬'
+          }, {
+            name: '互联网',
+            engname: 'Internet',
+            time: '1969'
+          }
         ],
         currentRow: null
       }
@@ -162,6 +180,12 @@
       //this._getCodeInformation();
     },
     methods: {
+      handleCheckedCitiesChange(){
+        console.log(this.checkList);
+        this.checkL = this.checkList.toString()
+        console.log(this.checkL)
+
+      },
       selectable(index){
         return index !== 1
       },
@@ -179,25 +203,28 @@
       },
       //代码窗代码信息
       _getCodeInformation() {
-        getCodeInformation().then(res => {
-          console.log('coooooo'+res);
-          this.codeinfo = res;
+        this.$axios.get('api/codeinformation',{
+          params:{
+            message: localStorage.query,
+            datafrom: this.checkL
+          }
+        }).then((res) =>{
+          console.log(res.data);
+          this.codeinfo = res.data
         })
       },
       currentSel(selVal){
         console.log("选中类型："+selVal);
-        // var url = 'api/eventlist?message=' + selVal;
-        // console.log('EventList:' + url);
-        // this.$axios.get(url).then((res)=>{
-        //   console.log(res.data);
-        //   this.eventlist = res.data
-        // });
-
-        this.unable = false;
+        var url = 'api/eventlist?message=' + selVal;
+        console.log('EventList:' + url);
+        this.$axios.get(url).then((res)=>{
+          console.log(res.data);
+          this.eventlist = res.data
+        });
       },
       Progress1() {
         //获取代码行数据
-        // this._getCodeInformation();
+        this._getCodeInformation();
         this.unable = true;
         //获取进度条
         var myProgress = document.getElementById("myProgress");
@@ -211,15 +238,16 @@
         mySpan.innerText = "";
         cmd.innerText = "";
         var str = this.codeinfo
+        var len = str.length
         console.log('str'+str);
         var i = 0;
         //用一个变量str存放代码信息，直接使用this,codeinfo有问题
         var value = myProgress.value;
         //进度条加载时间间隔
-        var time = (10 * 300) / 10;
+        var time = (len * 300) / 10;
         //代码信息模拟
         var ID2 = setInterval(function () {
-          if (i === 10) {
+          if (i === len) {
             clearInterval(ID2);
           } else {
             var newnode = document.createElement("li");
@@ -277,14 +305,16 @@
   }
   #list{
     text-align:left;
-    height: 260px;
+    height: 100%;
+    width:100%;
     overflow: scroll;
   }
   #xyl{
     text-align: center;
   }
   #four {
-    height: 300px;
+    height: 100%;
+    overflow: scroll;
     font-size: 20px;
     text-indent: 40px;
     line-height:35px;
@@ -302,8 +332,8 @@
   .bg-purple-dark {
     /*background: #99a9bf;*/
     /*background: #d3dce6;*/
-    background: #303030;
-    color:#D3D3D3;
+    background: #F3F3F3;
+    color:#1E1E1E;
   }
 
   .bg-purple {
@@ -312,7 +342,7 @@
     background: #1E1E1E;
   }
   .bg-purple1 {
-    background: #d3dce6;
+    background: #F3F3F3;
   }
   .bg-purple-light {
     background: #D3D3D3;
@@ -326,5 +356,26 @@
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
+  }
+  .text {
+    font-size: 18px;
+  }
+
+  .item {
+    margin-bottom: 18px;
+  }
+
+  .box-card {
+    width: 100%;
+    height: 100%;
+  }
+  #five{
+    height:100%;
+  }
+  .el-checkbox{
+    width: 15%;
+  }
+  .box-card2{
+    height:240px;
   }
 </style>

@@ -29,7 +29,7 @@ export function getAssess() {
 }
 //代码窗口信息
 export function getCodeInformation() {
-  const  url = 'api/codeinformation?message=' + localStorage.query
+  const  url = 'api/codeinformation' + localStorage.query
   console.log('CodeInformation:' + url);
   return axios.get(url).then((res)=>{
     return res.data

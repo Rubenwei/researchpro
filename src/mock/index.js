@@ -5,13 +5,7 @@ if (debug) {
 
   Mock.mock(/getMenu/, {
     "data": {
-      menu: [{
-        name: '主页',
-        name_en: 'Home',
-        router: '/home',
-        icon: 'el-icon-menu',
-        children: []
-        },
+      menu: [
         {
           name: '事件简介',
           name_en: 'Introduction',

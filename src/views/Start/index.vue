@@ -37,7 +37,7 @@
 
     <div id="content">
       <div class="item" v-for="(content, index) in contents" :id="getId(index)">
-        <p style="color:white;font-size:20px; text-align: left;width: 300px; position: relative; top: 30%;left: 13%;text-indent: 40px;line-height: 40px">{{content}}</p>
+        <p style="color:white;font-size:24px; text-align: left;width: 500px; position: relative; top: 30%;left: 11%;text-indent: 40px;line-height: 40px">{{content}}</p>
       </div>
     </div>
 
@@ -66,8 +66,8 @@
       console.log("请求科技事件名称列表");
       let url = 'api/getsearchlist';
       this.$axios.get(url).then((res)=>{
-          console.log(res.data);
-          this.$store.state.common.eventlist = res.data;
+        console.log(res.data);
+        this.$store.state.common.eventlist = res.data;
       })
     },
     methods: {

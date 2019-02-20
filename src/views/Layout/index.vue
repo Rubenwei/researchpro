@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- 这是侧导航 -->
+        <!-- dingbu -->
         <top-bar></top-bar>
 
             <!-- 这是顶部导航 -->

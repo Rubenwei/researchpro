@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <el-card>
-      <el-row :gutter="20">
-        <el-col :span="8">
-          搜索平均：{{avg}}
+  <div class="bg">
+      <el-row align="right">
+        <el-col :span="6" :offset="3">
+          <el-card>搜索平均：{{avg}}</el-card>
         </el-col>
-        <el-col :span="8">
-          PC平均：{{avgpc}}
+        <el-col :span="6" >
+          <el-card>PC平均：{{avgpc}}</el-card>
         </el-col>
-        <el-col :span="8">
-          移动平均：{{avgmobile}}
+        <el-col :span="6" >
+          <el-card>移动平均：{{avgmobile}}</el-card>
         </el-col>
       </el-row>
-    </el-card>
-    <el-row :gutter="20">
-      <el-col :span="24">
+    <el-row>
+      <el-col :span="18" :offset="3">
         <el-card>
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="搜索指数" name="first" :lazy='true'><search-index-chart></search-index-chart></el-tab-pane>
@@ -64,38 +62,13 @@
   };
 </script>
 <style scoped lang="less">
-  .el-menu{
-    width: 17.5%;
+  .bg{
+    background-image: url("../../../static/img/blue.jpg");
+    background-position: center;
+    background-size: 100%;
   }
-  .el-menu--horizontal>.el-menu-item {
-    float: left;
-    height: 40px;
-    line-height: 40px;
-    margin: 0;
-    border-bottom: 2px solid transparent;
-    color: #909399;
-  }
-  .sel-row {
-    margin-bottom: 20px;
-    .sel-label {
-      line-height: 36px;
-    }
-  }
-
-  .chart-wrap {
-    margin-top: 20px;
-  }
-
-  .el-card__header {
-    padding: 10px 20px !important;
-  }
-
-  .ct {
-    float: right;
-    line-height: 21px;
-    &:hover {
-      color: #20a0ff;
-      cursor: pointer;
-    }
+  .el-card{
+    margin: 20px;
+    opacity: 0.65;
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row :gutter="20">
+    <el-row >
       <!--代码窗-->
       <el-col :span="14" id="one" class="grid-content bg-purple">
         <div class="code">
@@ -21,13 +21,13 @@
             影响指数：{{assdata.impact}}
             <br>
 
-            Impact Index:{{assdata.impact}}
+            Impact Factor:{{assdata.impact}}
             <br>
             <br>
             影响等级：{{assdata.rander}}
             <br>
 
-            Information Level:{{assdata.engrander}}
+            Impact Level:{{assdata.engrander}}
             <br>
             <br>
             {{assdata.info}}
@@ -44,7 +44,7 @@
       <span id="mySpan"></span>
     </el-row>
 
-    <el-row :gutter="20">
+    <el-row>
       <!--操作窗-->
       <el-col :span="9" id="three" class="grid-content bg-purple1">
         <div id="list">
@@ -53,7 +53,7 @@
             :data="eventlist"
             highlight-current-row
             @current-change="handleCurrentChange"
-            style="width: 100%">
+            style="width: 100%; height: 300px">
             <el-table-column
 
               type="index"
@@ -78,7 +78,7 @@
       </el-col>
 
       <el-col :span="5" id="five" class="grid-content bg-purple1">
-        <div id="xyl">
+        <div class="content">
           领域：
           <el-select v-model="kind" @change="currentSel" placeholder="请选择" style="width:80%">
             <el-option
@@ -89,20 +89,20 @@
             </el-option>
           </el-select>
 
-          <br><br><br>
-          数据来源：
-          <el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
+          <br><br><br><br><br>数据来源：
+          <el-checkbox-group v-model="checkList"@change="handleCheckedCitiesChange" style="float: right">
             <el-checkbox label="百度"></el-checkbox>
             <el-checkbox label="知网"></el-checkbox>
             <el-checkbox label="谷歌"></el-checkbox>
           </el-checkbox-group>
 
-          <br><br><br><br><br>
+          <br><br><br>
           <!--按钮-->
           <el-button :disabled="unable"
                      type="primary"
                      round
                      @click="Progress1"
+                     style="margin:0 100px; width: 100px"
           >评估
           </el-button>
           <br>
@@ -121,7 +121,6 @@
   </div>
 </template>
 <script>
-  import {getCodeInformation, getAssess} from "../../api/recommend";
   import Bus from '../../bus'
 
   export default {
@@ -152,32 +151,29 @@
           engrander: '',
           info: '',
           enginfo: '',
-          brief: '夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞夏瑜潞',
+          brief: '',
         },
         eventlist: [
-          {
-            name: 'Linux',
-            engname: 'Linux',
-            time: '1936'
-          }, {
-            name: '云计算',
-            engname: 'cloud computing',
-            time: '2006'
-          }, {
-            name: '大数据',
-            engname: 'big data',
-            time: '2008年8月中旬'
-          }, {
-            name: '互联网',
-            engname: 'Internet',
-            time: '1969'
-          }
+          // {
+          //   name: 'Linux',
+          //   engname: 'Linux',
+          //   time: '1936'
+          // }, {
+          //   name: '云计算',
+          //   engname: 'cloud computing',
+          //   time: '2006'
+          // }, {
+          //   name: '大数据',
+          //   engname: 'big data',
+          //   time: '2008年8月中旬'
+          // }, {
+          //   name: '互联网',
+          //   engname: 'Internet',
+          //   time: '1969'
+          // }
         ],
         currentRow: null
       }
-    },
-    mounted(){
-      //this._getCodeInformation();
     },
     methods: {
       handleCheckedCitiesChange(){
@@ -191,15 +187,21 @@
       },
       //评估结果信息
       _getAssess() {
-        getAssess().then((res) => {
+        console.log("api/assessinfomation");
+        this.$axios.get('api/assessinfomation',{
+          params:{
+            message: localStorage.query,
+            datafrom: this.checkL
+          }
+        }).then((res) =>{
           console.log(res.data);
-          this.assdata.chiname = res.chiname;
-          this.assdata.engname = res.engname;
-          this.assdata.impact = res.impact;
-          this.assdata.rander = res.rander;
-          this.assdata.engrander = res.engrander;
-          this.assdata.brief = res.brief;
-        })
+          this.assdata.chiname = res.data.chiname;
+          this.assdata.engname = res.data.engname;
+          this.assdata.impact = res.data.impact;
+          this.assdata.rander = res.data.rander;
+          this.assdata.engrander = res.data.engrander;
+          this.assdata.brief = res.data.brief;
+        });
       },
       //代码窗代码信息
       _getCodeInformation() {
@@ -237,21 +239,23 @@
         myProgress.value = 0;
         mySpan.innerText = "";
         cmd.innerText = "";
-        var str = this.codeinfo
-        var len = str.length
-        console.log('str'+str);
+        var len =55;
         var i = 0;
-        //用一个变量str存放代码信息，直接使用this,codeinfo有问题
+        var rethis = this;
+
         var value = myProgress.value;
         //进度条加载时间间隔
-        var time = (len * 300) / 10;
+        var time = 1650;
         //代码信息模拟
         var ID2 = setInterval(function () {
+          len = rethis.codeinfo.length;
+          console.log('time:'+time);
+          console.log('len:'+len);
           if (i === len) {
             clearInterval(ID2);
           } else {
             var newnode = document.createElement("li");
-            newnode.innerText =str[i];
+            newnode.innerText =rethis.codeinfo[i];
             cmd.appendChild(newnode);
             scro.scrollTop = scro.scrollHeight;
             i++;
@@ -277,18 +281,7 @@
         this.unable = false;
         console.log("选中事件："+val.name);
         localStorage.query = val.name;
-        Bus.$emit('query', localStorage.query)
-        // var url = 'api/assessinfomation?message=' + localStorage.query;
-        // console.log('AssessInformation:' + url);
-        // this.$axios.get(url).then((res) => {
-        //   console.log(res.data);
-        //   this.assdata.chiname = res.data.chiname;
-        //   this.assdata.engname = res.data.engname;
-        //   this.assdata.impact = res.data.impact;
-        //   this.assdata.rander = res.data.rander;
-        //   this.assdata.engrander = res.data.engrander;
-        //   this.assdata.brief = res.data.brief;
-        // });
+        Bus.$emit('query', localStorage.query);
       }
     }
   }
@@ -298,10 +291,12 @@
     height: 300px;
     overflow: scroll;
     font-size:20px;
+    margin-top: 20px;
   }
   #two {
     height: 300px;
     font-size:17px;
+    margin-top: 20px;
   }
   #list{
     text-align:left;
@@ -309,12 +304,8 @@
     width:100%;
     overflow: scroll;
   }
-  #xyl{
-    text-align: center;
-  }
   #four {
     height: 100%;
-    overflow: scroll;
     font-size: 20px;
     text-indent: 40px;
     line-height:35px;
@@ -365,10 +356,6 @@
     margin-bottom: 18px;
   }
 
-  .box-card {
-    width: 100%;
-    height: 100%;
-  }
   #five{
     height:100%;
   }
@@ -376,6 +363,6 @@
     width: 15%;
   }
   .box-card2{
-    height:240px;
+    height:300px;
   }
 </style>

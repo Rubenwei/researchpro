@@ -1,144 +1,171 @@
 <template>
-  <div>
-    <div class ="first">
-      <el-row>
-        <h1 class="title">
-          事件简介
-        </h1>
-      </el-row>
-      <el-row>
-        <el-col :span="12" align="right">
-          <div id="container" :style="{width: '400px',height:'400px'}"></div>
+  <div class="bg">
+    <div>
+      <el-row style="padding-top: 10px">
+        <el-col :span="11" align="right" >
+          <el-card class="box-card" style="width: 513px ;height: 400px">
+            <div id="container" :style="{width: '400px',height:'400px'}"></div>
+          </el-card>
         </el-col>
-        <el-col :span="12">
-          <dl class="active"><dt>中文名：</dt>
-            <dd>{{ChiName}}</dd></dl>
-          <dl class="active"><dt>英文名：</dt>
-            <dd>{{EngName}}</dd></dl>
-          <dl class="active"><dt>国家：</dt>
-            <dd>{{Country}}</dd></dl>
-          <dl class="active"> <dt>类别：</dt>
-            <dd>{{Subject}}</dd></dl>
-          <dl class="active"><dt>时间：</dt>
-            <dd>{{Time}}</dd></dl>
-          <dl class="active"><dt>影响力等级：</dt>
-            <dd><el-rate
+        <el-col :span="11">
+          <el-card class="box-card " style="width: 661px; height: 400px">
+            <dl class="active">
+              <dt>中文名：</dt><dd class="long">{{ChiName}}</dd></dl>
+            <dl class="active">
+              <dt>英文名：</dt><dd class="long">{{EngName}}</dd></dl>
+            <dl class="active">
+              <dt>国家：</dt><dd>{{Country}}</dd></dl>
+            <dl class="active">
+              <dt>类别：</dt><dd>{{Subject}}</dd></dl>
+            <dl class="active">
+              <dt>时间：</dt><dd>{{Time}}</dd></dl>
+            <dl class="active">
+              <dt>影响力等级：</dt><dd><el-rate
               v-model="grade"
               disabled
               show-score
               text-color="#ff9900"
               score-template="{value}">
             </el-rate></dd></dl>
+          </el-card>
         </el-col>
       </el-row>
     </div>
     <el-row class="text">
-      <p v-for="info in Intro">
-        {{info}}
-      </p>
+      <el-card class="box-card">
+        <p v-for="info in Intro">
+          {{info}}
+        </p>
+      </el-card>
     </el-row>
     <go-top></go-top>
   </div>
 </template>
 <script>
-  import {getItem} from '../../api/recommend'
   import gotop from '../../components/GoTop'
   import Bus from '../../bus'
   export default {
     name: "eventintro",
     data () {
       return{
-        // items:['事件一','事件二', '事件三'],
+
         ChiName:'中文名称',
-        EngName:'英文名称',
+        EngName:'wjhfefbqiwf',
         Country:'中国',
         Subject: '类别学科',
         Time:'时间',
-        Intro:['我是第一段文字','我是第二段文字','我是第三段文字','我是第四段文字'],
+        Intro:['我是第一段文字','我是第二段文字','我是第三段文字','我是第四段文字','我是第四段文字','我是第四段文字','我是第四段文字','我是第四段文字'],
         grade: 2,
         picurl:'',
       }
     },
     components:{
-        'go-top':gotop
+      'go-top':gotop
     },
     mounted(){
       Bus.$on('query', (res)=>{
-        this._getItem()
+        this.drawchart()
       })
-      this._getItem()
       this.drawchart()
     },
     methods:{
       drawchart(){
-        let myChart = this.$echarts.init(document.getElementById("container"));
-        var app = {};
-        let option = {
-          xAxis: {
-            type: 'category',
-            data: ['等级一', '等级二', '等级三', '等级四', '等级五'],
-            axisLabel: {
-              textStyle: {
-                color: '#878787',//坐标值的具体的颜色
-              }
+        const url = '../../static/data.json'
+        console.log('intro:' + url)
+        this.$axios.get(url).then((res)=>{
+          console.log(res);
+          this.ChiName = res.data.cnname
+          this.EngName = res.data.engname
+          this.Country = res.data.country
+          this.Subject = res.data.subject
+          this.Time = res.data.time
+          this.Intro = res.data.info
+          this.grade = res.data.grade
+          this.picurl = res.data.pic
+
+          let myChart = this.$echarts.init(document.getElementById("container"));
+          let t = this;
+          var app = {};
+          let option = {
+            xAxis: {
+              type: 'category',
+              data: ['等级一', '等级二', '等级三', '等级四', '等级五'],
+              axisLabel: {
+                textStyle: {
+                  color: '#878787',//坐标值的具体的颜色
+                }
+              },
             },
-          },
-          yAxis: {
-            type: 'value',
-            axisLabel: {
-              textStyle: {
-                color: '#878787',//坐标值得具体的颜色
-              }
-            }
-          },
-          series: [{
-            data: [1, 2, 3, 4, 5],
-            type: 'bar',
-            itemStyle: {
-              normal: {
-                color: '#00BFFF',//设置柱子颜色
-                label: {
-                  show: true,//柱子上显示值
-                  position: 'top',//值在柱子上方显示
-                  textStyle: {
-                    color: '#FD6B71'//值得颜色
-                  }
+            yAxis: {
+              type: 'value',
+              axisLabel: {
+                textStyle: {
+                  color: '#878787',//坐标值得具体的颜色
                 }
               }
             },
-          }]
-        };
-        ;
-        if (option && typeof option === "object") {
-          myChart.setOption(option, true);
-        }
-      },
-      _getItem(){
-        getItem().then((res)=>{
-          console.log(res)
-          this.ChiName = res.cnname
-          this.EngName = res.engname
-          this.Country = res.country
-          this.Subject = res.subject
-          this.Time = res.time
-          this.Intro = res.info
-          this.grade = res.grade
-          this.picurl = res.pic
+            grid:{
+              show: true,
+              width: 300,
+              height: 300
+            },
+            series: [{
+              data: [1, 2, 3, 4, 5],
+              type: 'bar',
+              itemStyle: {
+                normal: {
+                  color: '#00BFFF',//设置柱子颜色
+                  label: {
+                    show: true,//柱子上显示值
+                    position: 'top',//值在柱子上方显示
+                    textStyle: {
+                      color: '#FD6B71'//值得颜色
+                    }
+                  }
+                },
+                emphasis: {
+                  color:'#FD6B71',
+                  shadowColor: 'rgba(0, 0, 0, 0.5)',
+                  shadowBlur: 20
+                }
+              },
+
+            }]
+          };
+          if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+            myChart.dispatchAction({
+              type:'highlight',
+              seriesIndex: 0,
+              dataIndex: t.grade - 1
+            })
+          }
         })
-      },
+
+      }
     }
   };
 </script>
 
 <style scoped lang="less">
-  div.first{
-    background-image: url("../../../static/img/6.jpg");
+  #container{
+    float: left;
+    margin-left: 10%;
+    margin-top: -20px;
+  }
+  .box-card{
+    margin: 10px;
+    width: 100%;
+    opacity: 0.65;
+  }
+  .bg{
+    background-image: url("../../../static/img/blue.jpg");
     background-position: center;
     background-size: 100%;
   }
   .title{
     text-align: center;
-    color: #9AC0CD;
+    color: #0f0f0f;
     font-size: 40px;
   }
   img{
@@ -167,33 +194,37 @@
     margin-bottom: 100px;
   }
   .text{
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
     font-size: 20px;
     text-indent: 40px;
     line-height: 50px;
     color: #838B8B;
   }
+  .long{
+    padding-left: 220px;
+  }
   dt{
     float: left;
-    width: 25%;
+    margin-left: 5%;
+    width: 30%;
     list-style: none;
     position: relative;
     padding: 0 0 0 2em;
-    margin: 0 0 .5em 10px;
+    line-height:180%;
     -webkit-transition: .12s;
     transition: .12s;
   }
-  dd{
-    width: 75%;
+  dl{
+    width: 100%;
   }
   .active{
     content: '\2022';
-    color: #DCDCDC;
+    color: black;
     text-align: left;
-    font-size: 1.75em;
+    font-size: 20px;
     opacity: .5;
-    line-height: 30px;
+    line-height:180%;
     -webkit-transition: .5s;
     transition: .5s;
   }
@@ -202,7 +233,7 @@
     -ms-transform: scale(1);
     transform: scale(1);
     opacity: 1;
-    text-shadow: 0 0 4px;
+    text-shadow: 0 0 1px;
     -webkit-transition: .1s;
     transition: .1s;
   }

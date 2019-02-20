@@ -112,7 +112,7 @@ export default {
   width: 64px;
 }
 .el-menu {
-  width: 50%;
+  width: 40%;
 }
 
 // 美化左侧导航的留白

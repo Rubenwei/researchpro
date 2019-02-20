@@ -7,8 +7,6 @@ const Start = resolve => require(['@/views/Start'], resolve)
 // 布局
 const Layout = resolve => require(['@/views/Layout'], resolve)
 
-// 主页
-const Home = resolve => require(['@/views/Home'], resolve)
 
 // 指数统计
 const Index = resolve => require(['@/views/Index'], resolve)
@@ -47,11 +45,7 @@ const router = new Router({
             },
             component: Layout,
             redirect: '/start',
-            children: [{
-                      path: 'home',
-                      meta: { requireAuth: true },
-                      component: Home
-                  },
+            children: [
                   {
                       path: 'index',
                       meta: { requireAuth: true },

@@ -20,19 +20,19 @@ export function getResource() {
 }
 
 //评估结果信息
-export function getAssess() {
-  const url = 'api/assessinfomation?message=' + localStorage.query
-  console.log('AssessInformation:' + url);
-  return axios.get(url).then((res)=>{
-    return res.data
-  })
-}
+// export function getAssess() {
+//   const url = 'api/assessinfomation?message=' + localStorage.query
+//   console.log('AssessInformation:' + url);
+//   return axios.get(url).then((res)=>{
+//     return res.data
+//   })
+// }
 //代码窗口信息
-export function getCodeInformation() {
-  const  url = 'api/codeinformation' + localStorage.query
-  console.log('CodeInformation:' + url);
-  return axios.get(url).then((res)=>{
-    return res.data
-  })
-}
+// export function getCodeInformation() {
+//   const  url = 'api/codeinformation' + localStorage.query
+//   console.log('CodeInformation:' + url);
+//   return axios.get(url).then((res)=>{
+//     return res.data
+//   })
+// }
 

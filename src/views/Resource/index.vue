@@ -1,34 +1,30 @@
 <template>
-  <div style="text-align:center" v-title="'补充说明'">
-      <el-card>
-        <el-row>
-          <div class="pic">
-            <h1>{{items.name}}</h1>
-            <div class="block">
-              <el-carousel :interval="4000" type="card" height="300px">
-                <el-carousel-item class="pic" v-for="item in items.picurl" :key="item.id">
-                  <img :src="item" class="bannderimg">
-                </el-carousel-item>
-              </el-carousel>
-            </div>
-          </div>
-        </el-row>
-        <el-row>
-         <el-card>
-           <p>视频</p>
-           <el-row  class="row-bg" justify="space-around" :gutter="50" type="flex">
-             <el-col :span="6" v-for="(item,index) in items.vidurl" :key="index" >
-               <div class="grid-content bg-purple">
-                 <video width="320" height="240" controls>
-                   <source :src="item"  type="video/mp4">
-                   您的浏览器不支持 HTML5 video 标签。
-                 </video>
-               </div>
-             </el-col>
-           </el-row>
-         </el-card>
-        </el-row>
-      </el-card>
+  <div class="bg">
+    <el-row>
+      <div class="pic">
+        <h1 style="text-align: center;">{{items.name}}</h1>
+        <div class="block">
+          <el-carousel :interval="4000" type="card" height="300px">
+            <el-carousel-item class="pic" v-for="item in items.picurl" :key="item.id">
+              <img :src="item" class="bannderimg">
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </div>
+    </el-row>
+    <el-row>
+      <h1 style="text-align: center;">视频</h1>
+      <el-row  type="flex">
+        <ul style="width: 1400px">
+          <li v-for="(item,index) in items.vidurl" :key="index" class="play-list">
+              <video width="300px" height="200px" controls>
+                <source :src="item"  type="video/mp4">
+                您的浏览器不支持 HTML5 video 标签。
+              </video>
+          </li>
+        </ul>
+      </el-row>
+    </el-row>
   </div>
 </template>
 <script>
@@ -39,7 +35,7 @@
     data(){
       return {
         items: {
-          name: '肥皂',
+          name: '',
           picurl: [],
           vidurl: []
         },
@@ -47,9 +43,9 @@
     },
     mounted(){
       Bus.$on('query', (res)=>{
-       this._getResource()
+        this._getResource()
       })
-     this._getResource()
+      this._getResource()
     },
     watch:{
       '$route.path': function (newVal, oldVal) {
@@ -77,39 +73,25 @@
   }
 </script>
 <style scoped lang="less">
-  .el-row {
-    margin-bottom: 20px;
-  &:last-child {
-     margin-bottom: 0;
-   }
+  .bg{
+    background-image: url("../../../static/img/blue.jpg");
+    background-position: center;
+    background-size: 100%;
   }
-  .bannderimg{
-    max-width:100%;
-    max-height: 100%;
+  .play-list{
+    display: inline-block;
+    padding-bottom: 44px;
+    overflow: hidden;
+    width: 33%;
+    vertical-align: top;
   }
-  .el-col {
-    border-radius: 4px;
+  .pic{
+    border-radius: 15px;
   }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
-  img{
-    margin: 0;
 
+  .bannderimg
+  {
+    max-width:100%;
   }
   .box-card{
     font-size:20px;
